@@ -228,7 +228,6 @@
             letter-spacing: 0.5px;
         }
 
-        /* Dynamic Animation Classes managed by Lifecycle Handlers */
         .fade-in {
             opacity: 1 !important;
         }
@@ -353,28 +352,36 @@
             font-weight: 400;
         }
 
+        /* --- TWO-COLUMN WORKSPACE: RANKS & FAQ SIDE BY SIDE --- */
+        .shop-layout-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 50px;
+            text-align: left;
+            align-items: start;
+            margin-top: 40px;
+            scroll-margin-top: 100px;
+        }
+
         .section-title {
             font-size: 3.5rem;
             font-weight: 900;
             text-transform: uppercase; 
-            margin-bottom: 50px;
-            scroll-margin-top: 100px;
+            margin-bottom: 40px;
         }
 
         .ranks-grid {
             display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 35px;
+            flex-direction: column;
+            gap: 45px;
             width: 100%;
         }
 
         .card-container {
             display: flex;
             flex-direction: column;
-            align-items: center;
-            width: 340px;
-            max-width: 100%;
+            align-items: flex-start;
+            width: 100%;
         }
 
         .rank-card {
@@ -386,7 +393,7 @@
             width: 100%;
             padding: 35px 30px;
             text-align: left;
-            height: 180px;
+            min-height: 150px;
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
@@ -415,6 +422,7 @@
             font-weight: 900;
             text-transform: lowercase;
             margin-top: -15px; 
+            margin-left: 30px;
             width: fit-content;
             text-decoration: none; 
             display: inline-block;
@@ -434,6 +442,79 @@
             100% { transform: rotate(6deg); }
         }
 
+        /* --- NEW ACCORDION FAQ SYSTEM (MATCHES UPLOADED DESIGN) --- */
+        .faq-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 100%;
+        }
+
+        .faq-item {
+            background-color: #111317; /* Dark grayish blue from image */
+            border: 1px solid #1e222b;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: border-color 0.3s ease;
+        }
+
+        .faq-item.active {
+            border: 2px solid #eab308; /* Yellow accent border on active */
+        }
+
+        .faq-trigger {
+            width: 100%;
+            background: transparent;
+            border: none;
+            outline: none;
+            padding: 22px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-align: left;
+            font-family: 'Poppins', sans-serif;
+            color: #ffffff;
+            font-size: 1.15rem;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+            transition: color 0.2s ease;
+        }
+
+        /* Custom graphic close icon modeled precisely after image layout */
+        .faq-icon {
+            color: #888;
+            font-size: 1.2rem;
+            font-weight: 800;
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s;
+            line-height: 1;
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(45deg); /* Flips + into a cleanly calculated × closer element */
+            color: #eab308;
+        }
+
+        /* Top Separator line triggered only when active state expands */
+        .faq-content-container {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .faq-inner-body {
+            padding: 0 25px 25px 25px;
+            color: #8a8f9d; /* Subdued text color from image */
+            font-size: 0.98rem;
+            line-height: 1.6;
+            font-weight: 400;
+            border-top: 2px solid transparent;
+        }
+
+        .faq-item.active .faq-inner-body {
+            border-top-color: #eab308; /* Inner warning highlight bar separating layout */
+            padding-top: 20px;
+        }
+
         /* --- WIFI WARNING POPUP STYLES --- */
         .wifi-warning-popup {
             position: fixed;
@@ -442,7 +523,7 @@
             background-color: rgba(15, 15, 15, 0.95);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-            border: 2px solid #eab308; /* Yellow Border */
+            border: 2px solid #eab308;
             border-radius: 12px;
             padding: 20px 25px;
             display: flex;
@@ -499,12 +580,22 @@
             body {
                 cursor: none;
             }
-            a, button, .wifi-close-btn {
+            a, button, .wifi-close-btn, .faq-trigger {
                 cursor: none !important;
             }
         }
 
         /* --- MOBILE RESPONSIVE MEDIA QUERIES --- */
+        @media (max-width: 992px) {
+            .shop-layout-grid {
+                grid-template-columns: 1fr;
+                gap: 60px;
+            }
+            .section-title {
+                margin-bottom: 25px;
+            }
+        }
+
         @media (max-width: 768px) {
             .cursor-dot {
                 display: none !important;
@@ -543,11 +634,8 @@
             .about-box p {
                 font-size: 0.95rem;
             }
-            .ranks-grid {
-                gap: 45px; 
-            }
-            .card-container {
-                width: 100%;
+            .buy-btn {
+                margin-left: 15px;
             }
             .wifi-warning-popup {
                 bottom: 15px;
@@ -587,7 +675,7 @@
             <div class="nav-links">
                 <a href="#">TOP</a>
                 <span class="divider">|</span>
-                <a href="#ranks-section">RANKS</a>
+                <a href="#shop-section">SHOP</a>
             </div>
 
             <div class="audio-status-container">
@@ -630,32 +718,70 @@
                 <p>Write your description here! As you keep adding more and more lines of text to this paragraph, this box will smoothly expand downwards automatically to fit everything perfectly without breaking your design.</p>
             </div>
 
-            <h2 id="ranks-section" class="section-title">RANKS</h2>
-
-            <div class="ranks-grid">
+            <div id="shop-section" class="shop-layout-grid">
                 
-                <div class="card-container">
-                    <div class="rank-card">
-                        <h3>Example Rank</h3>
-                        <p>Replace this with your first rank description.</p>
+                <div>
+                    <h2 class="section-title">RANKS</h2>
+                    <div class="ranks-grid">
+                        <div class="card-container">
+                            <div class="rank-card">
+                                <h3>Example Rank</h3>
+                                <p>Replace this with your first rank description.</p>
+                            </div>
+                            <a href="https://discord.gg/XjfQNeDTzN" target="_blank" class="buy-btn">buy</a>
+                        </div>
+
+                        <div class="card-container">
+                            <div class="rank-card">
+                                <h3>Example Rank</h3>
+                                <p>Replace this with your first rank description.</p>
+                            </div>
+                            <a href="https://discord.gg/XjfQNeDTzN" target="_blank" class="buy-btn">buy</a>
+                        </div>
                     </div>
-                    <a href="https://discord.gg/XjfQNeDTzN" target="_blank" class="buy-btn">buy</a>
                 </div>
 
-                <div class="card-container">
-                    <div class="rank-card">
-                        <h3>Example Rank</h3>
-                        <p>Replace this with your first rank description.</p>
-                    </div>
-                    <a href="https://discord.gg/XjfQNeDTzN" target="_blank" class="buy-btn">buy</a>
-                </div>
+                <div>
+                    <h2 class="section-title">FAQ</h2>
+                    <div class="faq-wrapper">
+                        
+                        <div class="faq-item">
+                            <button class="faq-trigger" onclick="toggleFaq(this)">
+                                <span>How fast do I get my purchase?</span>
+                                <span class="faq-icon">+</span>
+                            </button>
+                            <div class="faq-content-container">
+                                <div class="faq-inner-body">
+                                    Keys and ranks are applied automatically right after payment confirms in Discord — usually within a minute or two. If anything doesn't show up, ping a staff member in the store channel.
+                                </div>
+                            </div>
+                        </div>
 
-                <div class="card-container">
-                    <div class="rank-card">
-                        <h3>Example Rank</h3>
-                        <p>Replace this with your first rank description.</p>
+                        <div class="faq-item">
+                            <button class="faq-trigger" onclick="toggleFaq(this)">
+                                <span>What payment methods are supported?</span>
+                                <span class="faq-icon">+</span>
+                            </button>
+                            <div class="faq-content-container">
+                                <div class="faq-inner-body">
+                                    We support various secure payment networks handling major international debit cards, digital wallets, and ecosystem tokens. Head over to our automated processing channel to view all checkout methods.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <button class="faq-trigger" onclick="toggleFaq(this)">
+                                <span>Can I upgrade my rank later?</span>
+                                <span class="faq-icon">+</span>
+                            </button>
+                            <div class="faq-content-container">
+                                <div class="faq-inner-body">
+                                    Yes! Rank tiers calculate cumulative status adjustments automatically. You will only pay the baseline difference between your existing tier and your newly requested tier when selecting checkout upgrades.
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
-                    <a href="https://discord.gg/XjfQNeDTzN" target="_blank" class="buy-btn">buy</a>
                 </div>
 
             </div>
@@ -668,7 +794,7 @@
 
     <script>
         let audioPlayer;
-        const SONG_ID = 'atgjKEgSqSU'; // Aria Math background stream identifier
+        const SONG_ID = 'atgjKEgSqSU'; 
         let animationSequenceTriggered = false;
 
         function onYouTubeIframeAPIReady() {
@@ -676,7 +802,7 @@
                 width: '1px',
                 height: '1px',
                 videoId: SONG_ID,
-                host: 'https://www.youtube-nocookie.com', // Strict No-Ad configuration wrapper
+                host: 'https://www.youtube-nocookie.com', 
                 playerVars: {
                     autoplay: 1,
                     controls: 0,
@@ -689,7 +815,7 @@
                     loop: 1,
                     playlist: SONG_ID,
                     origin: window.location.origin,
-                    mute: 1 // Initially muted to safely bypass browser blocking rules
+                    mute: 1 
                 },
                 events: {
                     'onReady': onAudioEngineReady,
@@ -704,23 +830,18 @@
         }
 
         function onAudioEngineStateChange(event) {
-            // Triggered only when the track successfully streams and hits a full playing state
             if (event.data == YT.PlayerState.PLAYING) {
                 event.target.unMute();
-
-                // Prevent the intro animation text loop sequence from firing multiple times
                 if (!animationSequenceTriggered) {
                     animationSequenceTriggered = true;
                     runAudioStatusAnimationSequence();
                 }
             }
-
             if (event.data == YT.PlayerState.ENDED) {
                 audioPlayer.playVideo();
             }
         }
 
-        // Handles the structured structural Fade In -> NOW PLAYING... -> Fade Out -> Fade In -> ARIA MATH sequence
         function runAudioStatusAnimationSequence() {
             const nowPlaying=document.getElementById('nowPlayingText');
             const trackName=document.getElementById('trackStatusText');
@@ -737,6 +858,30 @@
                     trackName.classList.add('fade-in');
                 },600);
             },2000);
+        }
+
+        /* --- ACCORDION FUNCTIONAL HANDLER --- */
+        function toggleFaq(buttonElement) {
+            const faqItem = buttonElement.parentElement;
+            const contentContainer = buttonElement.nextElementSibling;
+            
+            // Check if item is already active
+            const isActive = faqItem.classList.contains('active');
+            
+            // Optional: Close all other open FAQ items first (Clean view setup)
+            document.querySelectorAll('.faq-item').forEach(item => {
+                item.classList.remove('active');
+                item.querySelector('.faq-content-container').style.maxHeight = null;
+            });
+
+            if (!isActive) {
+                faqItem.classList.add('active');
+                // Dynamically sets exact inner wrapper height to trigger a clean CSS transition
+                contentContainer.style.maxHeight = contentContainer.scrollHeight + "px";
+            } else {
+                faqItem.classList.remove('active');
+                contentContainer.style.maxHeight = null;
+            }
         }
 
         // --- CLIPBOARD LOGIC ---
@@ -782,7 +927,6 @@
             document.body.appendChild(ripple);
             setTimeout(() => { ripple.remove(); }, 500);
 
-            // User interface handshake fallback un-mute trigger
             if (audioPlayer && typeof audioPlayer.unMute === 'function') {
                 audioPlayer.unMute();
             }
