@@ -69,7 +69,7 @@
             min-width: 177.78vh;
             transform: translate(-50%, -50%);
             z-index: -2;
-            pointer-events: none; /* Ensures mouse clicks pass completely through and cannot touch YouTube player elements */
+            pointer-events: none; 
         }
         .video-background iframe {
             width: 100%;
@@ -180,12 +180,12 @@
             filter: drop-shadow(0 0 8px rgba(168, 85, 247, 0.4));
         }
 
-        /* --- WIDGET FLEX CONTAINER --- */
+        /* --- WIDGET STACKED CONTAINER --- */
         .widgets-container {
             display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 20px;
+            flex-direction: column; /* Stacks the widgets vertically */
+            align-items: center;
+            gap: 15px;             /* Space between the two bars */
             margin-bottom: 60px;
         }
 
@@ -201,7 +201,18 @@
             gap: 15px;
             font-size: 0.85rem;
             letter-spacing: 0.5px;
+            min-width: 440px; /* Gives both bars a uniform uniform look */
+            justify-content: center;
         }
+        
+        /* Widget logo alignment styling */
+        .widget-logo {
+            width: 18px;
+            height: 18px;
+            object-fit: contain;
+            image-rendering: pixelated; /* Keeps standard Minecraft block clean */
+        }
+
         .ip-bar .label-text {
             color: #ffffff;
             font-weight: 800;
@@ -353,6 +364,7 @@
 
         <div class="widgets-container">
             <div class="ip-bar">
+                <img src="https://minecraft.wiki/images/Grass_Block_JE4_BE3.png" alt="Minecraft Logo" class="widget-logo">
                 <span class="label-text">MINECRAFT</span>
                 <span class="divider">|</span>
                 <span class="value-text">play.obsidiansmp.net</span>
@@ -361,6 +373,7 @@
             </div>
 
             <div class="ip-bar">
+                <img src="https://assets-global.website-files.com/6257adef93867e50d84d30e2/636e0a6a49cf127bf92de1e2_icon_clyde_blurple_RGB.png" alt="Discord Logo" class="widget-logo">
                 <span class="label-text">DISCORD</span>
                 <span class="divider">|</span>
                 <span class="value-text">discord.gg/XjfQNeDTzN</span>
@@ -449,3 +462,21 @@
             document.body.appendChild(ripple);
 
             setTimeout(() => {
+                ripple.remove();
+            }, 500);
+        });
+
+        // --- TOP LOADING BAR COMPLETION LOGIC ---
+        window.addEventListener('load', () => {
+            const loadingBar = document.getElementById('loadingBar');
+            loadingBar.style.animation = 'none';
+            loadingBar.style.width = '100%';
+            
+            setTimeout(() => {
+                loadingBar.style.opacity = '0';
+            }, 400);
+        });
+    </script>
+
+</body>
+</html>
