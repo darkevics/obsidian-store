@@ -49,29 +49,33 @@
         }
 
         @keyframes load-progress {
-            0% { width: 0%; opacity: 1; }
+            0 { width: 0%; opacity: 1; }
             20% { width: 30%; }
             50% { width: 70%; }
             80% { width: 90%; }
             100% { width: 95%; }
         }
 
-        /* --- VIDEO BACKGROUND CONTAINER --- */
+        /* --- IMMERSIVE VIDEO BACKGROUND CONTAINER --- */
         .video-background {
             position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            pointer-events: none; 
+            overflow: hidden;
+        }
+        .video-background iframe {
+            position: absolute;
             top: 50%;
             left: 50%;
             width: 100vw;
-            height: 56.25vw;
+            height: 56.25vw; /* 16:9 Aspect Ratio */
             min-height: 100vh;
-            min-width: 177.78vh;
+            min-width: 177.78vh; /* 16:9 Aspect Ratio */
             transform: translate(-50%, -50%);
-            z-index: -2;
-            pointer-events: none; 
-        }
-        .video-background iframe {
-            width: 100%;
-            height: 100%;
             border: none;
             pointer-events: none;
         }
@@ -83,7 +87,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(11, 11, 11, 0.82);
+            background: rgba(11, 11, 11, 0.85);
             z-index: -1;
             pointer-events: none;
         }
@@ -402,7 +406,7 @@
     <div class="top-loading-bar" id="loadingBar"></div>
 
     <div class="video-background">
-        <iframe src="https://www.youtube.com/embed/1u-nMQp2UTI?autoplay=1&mute=1&loop=1&playlist=1u-nMQp2UTI&controls=0&showinfo=0&rel=0&iv_load_policy=3&playsinline=1&disablekb=1" allow="autoplay; encrypted-media"></iframe>
+        <iframe src="https://www.youtube.com/embed/1u-nMQp2UTI?autoplay=1&mute=1&loop=1&playlist=1u-nMQp2UTI&controls=0&showinfo=0&rel=0&iv_load_policy=3&playsinline=1&disablekb=1&modestbranding=1" allow="autoplay; encrypted-media"></iframe>
     </div>
 
     <div class="cursor-dot" id="customDot"></div>
