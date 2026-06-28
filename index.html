@@ -18,13 +18,11 @@
             padding: 0;
         }
         body {
-            /* --- RESTORED WALLPAPER BACKGROUND --- */
-            /* You can swap the link below with your own image file name (like 'wallpaper.png') */
             background-image: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1920');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            background-attachment: fixed; /* Keeps the wallpaper locked in place while scrolling */
+            background-attachment: fixed;
             
             color: #ffffff;
             font-family: 'Poppins', sans-serif;
@@ -32,39 +30,59 @@
             padding-bottom: 100px;
             position: relative;
             overflow-x: hidden;
-            /* Hides default cursor so the purple dot stands out nicely */
             cursor: none; 
         }
 
-        /* Dark Tint Overlay over the wallpaper to keep everything completely readable */
+        /* Dark Tint Overlay */
         .wallpaper-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(11, 11, 11, 0.82); /* Darkens wallpaper by 82% */
+            background: rgba(11, 11, 11, 0.82); 
             z-index: -1;
             pointer-events: none;
         }
 
+        /* --- GLOWING LOADING BAR EFFECT --- */
+        .loading-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px; /* Thin line */
+            width: 0%;
+            background-color: #a855f7;
+            z-index: 10000;
+            pointer-events: none;
+            box-shadow: 0 0 8px #a855f7, 0 0 15px rgba(168, 85, 247, 0.8);
+            opacity: 0;
+            transition: width 0.4s ease-out, opacity 0.2s ease;
+        }
+        .loading-bar.active {
+            opacity: 1;
+            width: 100%;
+        }
+
         /* --- CUSTOM MOUSE TRACKING EFFECTS --- */
-        
-        /* The Purple Dot trailing the cursor */
         .cursor-dot {
             width: 10px;
             height: 10px;
             background-color: #a855f7;
             border-radius: 50%;
             position: fixed;
-            transform: translate(-50%, -50%);
-            pointer-events: none; /* Lets clicks pass straight through */
+            /* Using top/left 0 with translate3d for better layout flexibility */
+            top: 0;
+            left: 0;
+            transform: translate3d(-50%, -50%, 0);
+            pointer-events: none; 
             z-index: 9999;
             box-shadow: 0 0 12px #a855f7, 0 0 20px rgba(168, 85, 247, 0.6);
-            transition: transform 0.05s ease-out;
+            opacity: 0; /* Hidden initially until mouse moves once to avoid top-left flash */
+            transition: opacity 0.1s ease;
         }
 
-        /* Click Wave Animation Ripple Box */
+        /* Click Wave Animation */
         .click-ripple {
             position: fixed;
             border: 3px solid #a855f7;
@@ -90,14 +108,11 @@
             }
         }
 
-        /* Make sure clickable assets keep standard cursor hidden */
         a, button {
             cursor: none !important;
         }
 
         /* --- PAGE LAYOUT & STYLING --- */
-
-        /* Top Navigation Bar */
         .navbar {
             background-color: rgba(0, 0, 0, 0.8);
             backdrop-filter: blur(8px);
@@ -126,7 +141,6 @@
             font-weight: 800;
         }
 
-        /* Container for content */
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -135,7 +149,6 @@
             z-index: 1;
         }
 
-        /* Header Area */
         .header-title {
             font-size: 3.8rem;
             font-weight: 900;
@@ -147,7 +160,6 @@
             letter-spacing: 0.5px;
         }
         
-        /* Logo Images styling */
         .header-title img {
             width: 80px;
             height: 80px;
@@ -155,7 +167,6 @@
             filter: drop-shadow(0 0 8px rgba(168, 85, 247, 0.4));
         }
 
-        /* Server IP Widget Box */
         .ip-bar {
             background-color: rgba(17, 17, 17, 0.85);
             backdrop-filter: blur(6px);
@@ -194,7 +205,6 @@
             background-color: #6b21a8;
         }
 
-        /* About Us Section Heading */
         .about-title {
             font-size: 3.5rem;
             font-weight: 900;
@@ -203,7 +213,6 @@
             letter-spacing: 1px;
         }
 
-        /* About Us Container */
         .about-box {
             background-color: rgba(21, 21, 21, 0.8);
             backdrop-filter: blur(10px);
@@ -224,7 +233,6 @@
             font-weight: 400;
         }
 
-        /* Section Title */
         .section-title {
             font-size: 3.5rem;
             font-weight: 900;
@@ -232,7 +240,6 @@
             scroll-margin-top: 100px;
         }
 
-        /* Ranks Grid Layout */
         .ranks-grid {
             display: flex;
             justify-content: center;
@@ -240,7 +247,6 @@
             gap: 35px;
         }
 
-        /* Card Container */
         .card-container {
             display: flex;
             flex-direction: column;
@@ -248,7 +254,6 @@
             width: 340px;
         }
 
-        /* Individual Rank Box */
         .rank-card {
             background-color: rgba(21, 21, 21, 0.8);
             backdrop-filter: blur(10px);
@@ -276,7 +281,6 @@
             font-weight: 400;
         }
 
-        /* Buy Button Styled Link */
         .buy-btn {
             background-color: #0b0221; 
             color: #ffffff;
@@ -301,14 +305,16 @@
 </head>
 <body>
 
+    <div class="loading-bar" id="loadingBar"></div>
+
     <div class="cursor-dot" id="customDot"></div>
 
     <div class="wallpaper-overlay"></div>
 
     <nav class="navbar">
-        <a href="#">Top</a>
+        <a href="#" class="load-trigger">Top</a>
         <span>|</span>
-        <a href="#ranks-section">Ranks</a>
+        <a href="#ranks-section" class="load-trigger">Ranks</a>
     </nav>
 
     <div class="container">
@@ -342,7 +348,7 @@
                     <h3>Example Rank</h3>
                     <p>Replace this with your first rank description.</p>
                 </div>
-                <a href="https://discord.gg/XjfQNeDTzN" target="_blank" class="buy-btn">buy</a>
+                <a href="https://discord.gg/XjfQNeDTzN" target="_blank" class="buy-btn load-trigger">buy</a>
             </div>
 
             <div class="card-container">
@@ -350,7 +356,7 @@
                     <h3>Example Rank</h3>
                     <p>Replace this with your first rank description.</p>
                 </div>
-                <a href="https://discord.gg/XjfQNeDTzN" target="_blank" class="buy-btn">buy</a>
+                <a href="https://discord.gg/XjfQNeDTzN" target="_blank" class="buy-btn load-trigger">buy</a>
             </div>
 
             <div class="card-container">
@@ -358,7 +364,7 @@
                     <h3>Example Rank</h3>
                     <p>Replace this with your first rank description.</p>
                 </div>
-                <a href="https://discord.gg/XjfQNeDTzN" target="_blank" class="buy-btn">buy</a>
+                <a href="https://discord.gg/XjfQNeDTzN" target="_blank" class="buy-btn load-trigger">buy</a>
             </div>
 
         </div>
@@ -371,18 +377,51 @@
             navigator.clipboard.writeText('play.obsidiansmp.net');
             const btn = document.querySelector('.copy-btn');
             btn.textContent = 'Copied!';
+            triggerLoadingEffect(); // Also fires the cool bar effect when copying!
             setTimeout(() => {
                 btn.textContent = 'Copy IP';
             }, 2000);
         }
 
+        // --- LOADING BAR ANIMATION LOGIC ---
+        const loadingBar = document.getElementById('loadingBar');
+        
+        function triggerLoadingEffect() {
+            // Reset if already active
+            loadingBar.classList.remove('active');
+            loadingBar.style.transition = 'none';
+            loadingBar.style.width = '0%';
+            
+            // Force browser layout repaint
+            void loadingBar.offsetWidth;
+            
+            // Activate loading sequence
+            loadingBar.style.transition = 'width 0.6s cubic-bezier(0.1, 0.8, 0.3, 1), opacity 0.2s ease';
+            loadingBar.classList.add('active');
+            
+            // Smoothly hide it once it finishes stretching across
+            setTimeout(() => {
+                loadingBar.style.opacity = '0';
+            }, 600);
+        }
+
+        // Attach loading bar trigger to all buttons and links
+        document.querySelectorAll('.load-trigger').forEach(element => {
+            element.addEventListener('click', () => {
+                triggerLoadingEffect();
+            });
+        });
+
         // --- JS MOUSE ANIMATION EVENT HANDLERS ---
         const customDot = document.getElementById('customDot');
 
-        // Track mouse position to update the purple glow dot
+        // Dynamically follows cursor positions smoothly
         window.addEventListener('mousemove', (e) => {
-            customDot.style.left = e.clientX + 'px';
-            customDot.style.top = e.clientY + 'px';
+            customDot.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0) translate(-50%, -50%)`;
+            // Make dot visible only on the first mouse movement so it never blinks in the top-left corner
+            if (customDot.style.opacity !== '1') {
+                customDot.style.opacity = '1';
+            }
         });
 
         // Trigger expanding circle ring animation on click
@@ -394,7 +433,6 @@
             
             document.body.appendChild(ripple);
 
-            // Clean up the DOM element after the 0.5s fade out finishes
             setTimeout(() => {
                 ripple.remove();
             }, 500);
