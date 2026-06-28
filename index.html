@@ -106,12 +106,15 @@
             background-color: #a855f7;
             border-radius: 50%;
             position: fixed;
+            /* Default position offscreen so it doesn't blink in the center on load */
+            left: -100px;
+            top: -100px;
             transform: translate(-50%, -50%);
             pointer-events: none;
             z-index: 9999;
             box-shadow: 0 0 12px #a855f7, 0 0 20px rgba(168, 85, 247, 0.6);
             transition: transform 0.05s ease-out, opacity 0.2s ease;
-            opacity: 1;
+            opacity: 0; /* Keep hidden until we track context placement */
         }
 
         .click-ripple {
@@ -496,39 +499,39 @@
     </div>
 
     <script>
-        // Copy IP Widget Logic
         function copyIpAddress() {
             navigator.clipboard.writeText('play.obsidiansmp.net');
             const btn = document.getElementById('mcBtn');
             btn.textContent = 'Copied!';
-            setTimeout(() => {
-                btn.textContent = 'Copy IP';
-            }, 2000);
+            setTimeout(() => { btn.textContent = 'Copy IP'; }, 2000);
         }
 
-        // Copy Discord Invite Link Logic
         function copyDiscordLink() {
             navigator.clipboard.writeText('https://discord.gg/XjfQNeDTzN');
             const btn = document.getElementById('dcBtn');
             btn.textContent = 'Copied!';
-            setTimeout(() => {
-                btn.textContent = 'Copy Link';
-            }, 2000);
+            setTimeout(() => { btn.textContent = 'Copy Link'; }, 2000);
         }
 
-        // --- JS MOUSE ANIMATION EVENT HANDLERS ---
+        // --- FIXED JS MOUSE ANIMATION LOGIC ---
         const customDot = document.getElementById('customDot');
 
-        window.addEventListener('mousemove', (e) => {
+        function updateDotPosition(e) {
             customDot.style.left = e.clientX + 'px';
             customDot.style.top = e.clientY + 'px';
-        });
+            // Show the dot as soon as we know where the cursor actually is
+            if (customDot.style.opacity !== '1') {
+                customDot.style.opacity = '1';
+            }
+        }
+
+        // Instantly maps position on hover, entry, or motion
+        window.addEventListener('mousemove', updateDotPosition);
+        document.addEventListener('mouseenter', updateDotPosition);
+        document.addEventListener('mouseover', updateDotPosition);
 
         document.addEventListener('mouseleave', () => {
             customDot.style.opacity = '0';
-        });
-        document.addEventListener('mouseenter', () => {
-            customDot.style.opacity = '1';
         });
 
         window.addEventListener('click', (e) => {
@@ -538,21 +541,14 @@
             ripple.style.top = e.clientY + 'px';
             
             document.body.appendChild(ripple);
-
-            setTimeout(() => {
-                ripple.remove();
-            }, 500);
+            setTimeout(() => { ripple.remove(); }, 500);
         });
 
-        // --- TOP LOADING BAR COMPLETION LOGIC ---
         document.addEventListener('DOMContentLoaded', () => {
             const loadingBar = document.getElementById('loadingBar');
             loadingBar.style.animation = 'none'; 
             loadingBar.style.width = '100%'; 
-            
-            setTimeout(() => {
-                loadingBar.style.opacity = '0';
-            }, 400);
+            setTimeout(() => { loadingBar.style.opacity = '0'; }, 400);
         });
     </script>
 
