@@ -45,7 +45,7 @@
             z-index: 99999;
             width: 0%;
             box-shadow: 0 0 8px #a855f7, 0 0 15px rgba(168, 85, 247, 0.8);
-            transition: opacity 0.4s ease;
+            transition: opacity 0.4s ease, width 0.4s ease;
             pointer-events: none;
             animation: load-progress 2s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
         }
@@ -102,7 +102,7 @@
             z-index: 9999;
             box-shadow: 0 0 12px #a855f7, 0 0 20px rgba(168, 85, 247, 0.6);
             transition: transform 0.05s ease-out, opacity 0.2s ease;
-            opacity: 0;
+            opacity: 1; /* Always visible initially to ensure instant rendering */
         }
 
         .click-ripple {
@@ -183,9 +183,9 @@
         /* --- WIDGET STACKED CONTAINER --- */
         .widgets-container {
             display: flex;
-            flex-direction: column; /* Stacks the widgets vertically */
+            flex-direction: column; 
             align-items: center;
-            gap: 15px;             /* Space between the two bars */
+            gap: 15px;             
             margin-bottom: 60px;
         }
 
@@ -201,16 +201,14 @@
             gap: 15px;
             font-size: 0.85rem;
             letter-spacing: 0.5px;
-            min-width: 440px; /* Gives both bars a uniform uniform look */
+            min-width: 440px; 
             justify-content: center;
         }
         
-        /* Widget logo alignment styling */
         .widget-logo {
             width: 18px;
             height: 18px;
             object-fit: contain;
-            image-rendering: pixelated; /* Keeps standard Minecraft block clean */
         }
 
         .ip-bar .label-text {
@@ -364,7 +362,7 @@
 
         <div class="widgets-container">
             <div class="ip-bar">
-                <img src="https://minecraft.wiki/images/Grass_Block_JE4_BE3.png" alt="Minecraft Logo" class="widget-logo">
+                <img src="https://minecraft.wiki/images/Grass_Block_JE7_BE7.png" alt="Minecraft Logo" class="widget-logo">
                 <span class="label-text">MINECRAFT</span>
                 <span class="divider">|</span>
                 <span class="value-text">play.obsidiansmp.net</span>
@@ -447,10 +445,13 @@
         window.addEventListener('mousemove', (e) => {
             customDot.style.left = e.clientX + 'px';
             customDot.style.top = e.clientY + 'px';
-            
-            if (customDot.style.opacity !== "1") {
-                customDot.style.opacity = "1";
-            }
+        });
+
+        document.addEventListener('mouseleave', () => {
+            customDot.style.opacity = '0';
+        });
+        document.addEventListener('mouseenter', () => {
+            customDot.style.opacity = '1';
         });
 
         window.addEventListener('click', (e) => {
@@ -467,10 +468,10 @@
         });
 
         // --- TOP LOADING BAR COMPLETION LOGIC ---
-        window.addEventListener('load', () => {
+        document.addEventListener('DOMContentLoaded', () => {
             const loadingBar = document.getElementById('loadingBar');
-            loadingBar.style.animation = 'none';
-            loadingBar.style.width = '100%';
+            loadingBar.style.animation = 'none'; 
+            loadingBar.style.width = '100%'; 
             
             setTimeout(() => {
                 loadingBar.style.opacity = '0';
