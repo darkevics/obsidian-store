@@ -59,7 +59,7 @@
             padding: 20px;
         }
 
-        /* Header Area - Updated font-size for bigger text */
+        /* Header Area */
         .header-title {
             font-size: 3.8rem;
             font-weight: 900;
@@ -71,7 +71,7 @@
             letter-spacing: 0.5px;
         }
         
-        /* Logo Images styling - Updated to be bigger */
+        /* Logo Images styling */
         .header-title img {
             width: 80px;
             height: 80px;
@@ -89,7 +89,7 @@
             padding: 10px 20px;
             gap: 15px;
             font-size: 0.85rem;
-            margin-bottom: 80px;
+            margin-bottom: 60px;
             letter-spacing: 0.5px;
         }
         .ip-bar .mc-label {
@@ -118,6 +118,29 @@
             background-color: #6b21a8;
         }
 
+        /* About Us Section Box */
+        .about-section {
+            background-color: #111111;
+            border: 1px solid #222222;
+            border-radius: 12px;
+            max-width: 800px;
+            margin: 0 auto 80px auto;
+            padding: 35px;
+            text-align: left;
+        }
+        .about-section h2 {
+            font-size: 2rem;
+            font-weight: 900;
+            margin-bottom: 15px;
+            color: #ffffff;
+        }
+        .about-section p {
+            color: #aaaaaa;
+            font-size: 1rem;
+            line-height: 1.6;
+            font-weight: 400;
+        }
+
         /* Section Title */
         .section-title {
             font-size: 2.6rem;
@@ -134,7 +157,7 @@
             gap: 35px;
         }
 
-        /* Card Container (Rank Box + Buy Button) */
+        /* Card Container (Rank Box + Buy Link) */
         .card-container {
             display: flex;
             flex-direction: column;
@@ -168,7 +191,7 @@
             font-weight: 400;
         }
 
-        /* Buy Button styling */
+        /* Buy Button Styled Link */
         .buy-btn {
             background-color: #09021a; 
             color: #ffffff;
@@ -182,6 +205,8 @@
             margin-top: 20px;
             cursor: pointer;
             width: fit-content;
+            text-decoration: none; /* Removes anchor underline */
+            display: inline-block;
             transition: transform 0.2s, background-color 0.2s;
         }
         .buy-btn:hover {
@@ -214,6 +239,11 @@
             <button class="copy-btn" onclick="copyIpAddress()">Copy IP</button>
         </div>
 
+        <div class="about-section">
+            <h2>About Us</h2>
+            <p>Welcome to Obsidian SMP! This is where you can write out your complete server description. Share your game modes, features, community rules, or whatever else makes your community awesome. You can easily modify this block of text right inside the paragraph tag.</p>
+        </div>
+
         <h2 id="ranks-section" class="section-title">Ranks</h2>
 
         <div class="ranks-grid">
@@ -223,7 +253,7 @@
                     <h3>Example Rank</h3>
                     <p>Replace this with your first rank description.</p>
                 </div>
-                <button class="buy-btn">buy</button>
+                <a href="https://discord.gg/XjfQNeDTzN" target="_blank" class="buy-btn">buy</a>
             </div>
 
             <div class="card-container">
@@ -231,7 +261,7 @@
                     <h3>Example Rank</h3>
                     <p>Replace this with your first rank description.</p>
                 </div>
-                <button class="buy-btn">buy</button>
+                <a href="https://discord.gg/XjfQNeDTzN" target="_blank" class="buy-btn">buy</a>
             </div>
 
             <div class="card-container">
@@ -239,7 +269,7 @@
                     <h3>Example Rank</h3>
                     <p>Replace this with your first rank description.</p>
                 </div>
-                <button class="buy-btn">buy</button>
+                <a href="https://discord.gg/XjfQNeDTzN" target="_blank" class="buy-btn">buy</a>
             </div>
 
         </div>
