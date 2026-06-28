@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Obsidian Store</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght=400;600;800;900&display=swap" rel="stylesheet">
     <style>
         /* Smooth Scrolling Enable */
         html {
@@ -41,8 +41,10 @@
             font-weight: 800;
             font-size: 1.1rem;
             margin-right: 15px;
-            transition: color 0.2s;
+            /* Smooth fade transition when mouse enters/leaves */
+            transition: color 0.3s ease; 
         }
+        /* Hover state turns purple */
         .navbar a:hover {
             color: #a855f7;
         }
@@ -116,3 +118,141 @@
         .ip-bar .copy-btn:hover {
             background-color: #6b21a8;
         }
+
+        /* Section Title */
+        .section-title {
+            font-size: 2.6rem;
+            font-weight: 900;
+            margin-bottom: 50px;
+            scroll-margin-top: 100px; /* Prevents sticky navbar from covering title */
+        }
+
+        /* Ranks Grid Layout */
+        .ranks-grid {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 35px;
+        }
+
+        /* Card Container (Rank Box + Buy Button) */
+        .card-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 320px;
+        }
+
+        /* Individual Rank Box */
+        .rank-card {
+            background-color: #151515;
+            border: 1px solid #222222;
+            border-radius: 12px;
+            width: 100%;
+            padding: 30px 25px;
+            text-align: left;
+            height: 160px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+        .rank-card h3 {
+            color: #a855f7; 
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+            font-weight: 800;
+        }
+        .rank-card p {
+            color: #aaaaaa;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            font-weight: 400;
+        }
+
+        /* Buy Button styling */
+        .buy-btn {
+            background-color: #09021a; 
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            padding: 6px 40px;
+            font-size: 1.6rem;
+            font-weight: 900;
+            font-family: 'Poppins', sans-serif;
+            text-transform: lowercase;
+            margin-top: 20px;
+            cursor: pointer;
+            width: fit-content;
+            transition: transform 0.2s, background-color 0.2s;
+        }
+        .buy-btn:hover {
+            transform: scale(1.05);
+            background-color: #120433;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="#">Top</a>
+        <span>|</span>
+        <a href="#ranks-section">Ranks</a>
+    </nav>
+
+    <div class="container">
+        
+        <h1 class="header-title">Obsidian Store</h1>
+
+        <div class="ip-bar">
+            <span class="mc-label">MINECRAFT</span>
+            <span class="divider">|</span>
+            <span class="ip-address">play.obsidiansmp.net</span>
+            <span class="divider">|</span>
+            <button class="copy-btn" onclick="copyIpAddress()">Copy IP</button>
+        </div>
+
+        <h2 id="ranks-section" class="section-title">Ranks</h2>
+
+        <div class="ranks-grid">
+            
+            <div class="card-container">
+                <div class="rank-card">
+                    <h3>Example Rank</h3>
+                    <p>Replace this with your first rank description.</p>
+                </div>
+                <button class="buy-btn">buy</button>
+            </div>
+
+            <div class="card-container">
+                <div class="rank-card">
+                    <h3>Example Rank</h3>
+                    <p>Replace this with your first rank description.</p>
+                </div>
+                <button class="buy-btn">buy</button>
+            </div>
+
+            <div class="card-container">
+                <div class="rank-card">
+                    <h3>Example Rank</h3>
+                    <p>Replace this with your first rank description.</p>
+                </div>
+                <button class="buy-btn">buy</button>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        function copyIpAddress() {
+            navigator.clipboard.writeText('play.obsidiansmp.net');
+            const btn = document.querySelector('.copy-btn');
+            btn.textContent = 'Copied!';
+            setTimeout(() => {
+                btn.textContent = 'Copy IP';
+            }, 2000);
+        }
+    </script>
+
+</body>
+</html>
