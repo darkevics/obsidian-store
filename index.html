@@ -6,8 +6,6 @@
 
 <title>Obsidian Store</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
-    
 <style>
 
 html{
@@ -22,7 +20,7 @@ html{
 
 body{
     background:#0b0b0b;
-    color:white;
+    color:#fff;
     font-family:Arial, Helvetica, sans-serif;
 }
 
@@ -30,7 +28,7 @@ body{
     position:fixed;
     top:20px;
     right:30px;
-    color:white;
+    color:#fff;
     text-decoration:none;
     font-weight:bold;
     transition:.25s;
@@ -42,48 +40,37 @@ body{
 }
 
 .hero{
-    height:100vh;
+    min-height:100vh;
     display:flex;
     flex-direction:column;
-    justify-content:center;
     align-items:center;
+    justify-content:flex-start;
     text-align:center;
+    padding-top:40px;
 }
 
 .logo{
-    display:flex;
-    align-items:center;
-    gap:30px;
-}
-
-.logo img{
-    width:90px;
-    image-rendering:pixelated;
+    margin-bottom:60px;
 }
 
 .logo h1{
-    font-size:70px;
-    letter-spacing:5px;
+    font-size:72px;
+    font-weight:900;
+    color:white;
+    text-shadow:
+        0 0 10px #8f5cff,
+        0 0 20px #8f5cff,
+        0 0 40px #8f5cff;
 }
 
 .ipBox{
-
-    margin-top:40px;
-
     display:flex;
-
     align-items:center;
-
     gap:15px;
-
     background:#171717;
-
-    padding:20px 35px;
-
-    border-radius:15px;
-
     border:2px solid #2f2f2f;
-
+    border-radius:16px;
+    padding:20px 35px;
 }
 
 .ip{
@@ -92,130 +79,102 @@ body{
 }
 
 .copyBtn{
-
     padding:12px 25px;
-
     background:#3b82f6;
-
-    color:white;
-
     border:none;
-
     border-radius:10px;
-
-    cursor:pointer;
-
+    color:white;
     font-weight:bold;
-
+    cursor:pointer;
     transition:.25s;
-
 }
 
 .copyBtn:hover{
-
-    box-shadow:0 0 20px #3b82f6;
-
     transform:scale(1.05);
-
+    box-shadow:0 0 20px #3b82f6;
 }
 
 .menu{
-
-    margin-top:60px;
-
-    font-size:45px;
-
+    margin-top:70px;
+    font-size:60px;
+    color:#d2b6ff;
     cursor:pointer;
-
     transition:.25s;
-
 }
 
 .menu:hover{
-
     color:#8f5cff;
-
+    text-shadow:0 0 15px #8f5cff;
 }
 
 .store{
-
     min-height:100vh;
-
-    padding-top:120px;
-
+    padding:120px 20px;
     text-align:center;
-
 }
 
 .store h2{
-
-    font-size:55px;
-
+    font-size:60px;
     margin-bottom:60px;
-
+    font-weight:900;
 }
 
 .rank{
-
     width:340px;
-
     margin:25px auto;
-
-    background:#171717;
-
-    border:2px solid #8f5cff;
-
-    border-radius:18px;
-
     padding:30px;
-
+    background:#141414;
+    border:2px solid #8f5cff;
+    border-radius:18px;
     transition:.3s;
-
 }
 
 .rank:hover{
-
     transform:translateY(-8px);
-
-    box-shadow:0 0 30px #8f5cff;
-
+    box-shadow:0 0 25px #8f5cff;
 }
 
 .rank h3{
-
-    font-size:35px;
-
+    font-size:40px;
+    color:#a970ff;
     margin-bottom:15px;
+}
 
+.rank p{
+    color:#ddd;
+    margin-bottom:25px;
 }
 
 .buy{
-
-    margin-top:20px;
-
     display:inline-block;
-
-    background:#3b82f6;
-
-    padding:14px 35px;
-
-    color:white;
-
     text-decoration:none;
-
+    background:#3b82f6;
+    color:white;
+    padding:14px 45px;
     border-radius:12px;
-
     font-weight:bold;
-
     transition:.25s;
-
 }
 
 .buy:hover{
-
     transform:scale(1.08);
-
     box-shadow:0 0 20px #3b82f6;
+}
+
+@media(max-width:700px){
+
+.logo h1{
+    font-size:48px;
+}
+
+.ipBox{
+    flex-direction:column;
+    gap:12px;
+}
+
+.rank{
+    width:90%;
+}
 
 }
 
@@ -230,13 +189,7 @@ body{
 <section class="hero">
 
 <div class="logo">
-
-<img src="https://minecraft.wiki/images/Obsidian_JE3_BE2.png?0a8ae">
-
-<h1>OBSIDIAN STORE</h1>
-
-<img src="https://minecraft.wiki/images/Obsidian_JE3_BE2.png?0a8ae">
-
+<h1>Obsidian Store</h1>
 </div>
 
 <div class="ipBox">
@@ -267,45 +220,20 @@ onclick="document.getElementById('store').scrollIntoView({behavior:'smooth'})">
 <h2>STORE</h2>
 
 <div class="rank">
-
 <h3>VIP</h3>
-
 <p>Exclusive perks and cosmetics.</p>
-
-<a class="buy"
-href="https://discord.gg/wNpcbbbS"
-target="_blank">
-CLICK
-</a>
-
+<a class="buy" href="https://discord.gg/wNpcbbbS" target="_blank">CLICK</a>
 </div>
 
 <div class="rank">
-
 <h3>MVP</h3>
-
 <p>More rewards and better perks.</p>
-
-<a class="buy"
-href="https://discord.gg/wNpcbbbS"
-target="_blank">
-CLICK
-</a>
-
+<a class="buy" href="https://discord.gg/wNpcbbbS" target="_blank">CLICK</a>
 </div>
-
 <div class="rank">
-
 <h3>LEGEND</h3>
-
 <p>The ultimate supporter rank.</p>
-
-<a class="buy"
-href="https://discord.gg/wNpcbbbS"
-target="_blank">
-CLICK
-</a>
-
+<a class="buy" href="https://discord.gg/wNpcbbbS" target="_blank">CLICK</a>
 </div>
 
 </section>
@@ -314,19 +242,19 @@ CLICK
 
 function copyIP(){
 
-const ip=document.getElementById("serverIP").innerText;
+    const ip=document.getElementById("serverIP").innerText;
 
-navigator.clipboard.writeText(ip);
+    navigator.clipboard.writeText(ip);
 
-const btn=document.querySelector(".copyBtn");
+    const btn=document.querySelector(".copyBtn");
 
-btn.innerText="Copied!";
+    btn.innerText="Copied!";
 
-setTimeout(function(){
+    setTimeout(function(){
 
-btn.innerText="Copy";
+        btn.innerText="Copy";
 
-},2000);
+    },2000);
 
 }
 
