@@ -10,72 +10,33 @@
 
 <style>
 
-html{
-    scroll-behavior:smooth;
-}
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
 body{
     background:#0f0f0f;
     color:white;
     font-family:Poppins,sans-serif;
+    margin:0;
+    padding:20px;
 }
-
-/* Navigation */
-
-.nav{
-    position:fixed;
-    top:25px;
-    left:25px;
-    display:flex;
-    align-items:center;
-    gap:15px;
-    z-index:1000;
-    font-weight:700;
-    font-size:18px;
-}
-
-.nav a{
-    color:white;
-    text-decoration:none;
-    transition:color .25s ease;
-}
-
-.nav a:hover{
-    color:#9b6dff;
-}
-
-.nav span{
-    color:#666;
-}
-
-/* Hero */
 
 .container{
-    padding:70px;
+    text-align:left;
 }
 
 .logo{
     display:flex;
     align-items:center;
-    gap:20px;
-    margin-bottom:35px;
+    gap:15px;
+    margin-bottom:25px;
 }
 
 .logo img{
-    width:70px;
-    image-rendering:pixelated;
+    width:40px;
 }
 
 .logo h1{
-    font-size:58px;
+    font-size:32px;
     font-weight:800;
-    letter-spacing:3px;
+    letter-spacing:2px;
 }
 
 .ip-box{
@@ -83,10 +44,10 @@ body{
     align-items:center;
     gap:18px;
     background:#1b1b1b;
-    padding:18px 28px;
-    border-radius:15px;
+    padding:14px 20px;
+    border-radius:12px;
     border:2px solid #333;
-    font-size:20px;
+    font-size:16px;
 }
 
 .label{
@@ -107,126 +68,49 @@ button{
     background:#7a3cff;
     color:white;
     border:none;
-    padding:12px 22px;
-    border-radius:10px;
-    font-size:16px;
+    padding:10px 16px;
+    border-radius:8px;
+    font-size:14px;
     cursor:pointer;
-    transition:.25s;
 }
 
 button:hover{
     background:#9358ff;
-    transform:scale(1.05);
-}
-
-/* Ranks */
-
-#ranks{
-    margin-top:300px;
-    padding:70px;
-}
-
-#ranks h2{
-    font-size:48px;
-    margin-bottom:20px;
-}
-
-.rank-card{
-    background:#1b1b1b;
-    border:2px solid #333;
-    border-radius:15px;
-    padding:25px;
-    margin-bottom:20px;
-    max-width:450px;
-}
-
-.rank-card h3{
-    color:#9b6dff;
-    margin-bottom:10px;
-}
-
-.rank-card p{
-    color:#bbb;
 }
 
 </style>
 </head>
 
-<body id="top">
-
-<nav class="nav">
-    <a href="#top">Top</a>
-    <span>|</span>
-    <a href="#ranks">Ranks</a>
-</nav>
+<body>
 
 <div class="container">
 
 <div class="logo">
-
 <img src="https://minecraft.wiki/images/Obsidian_JE3_BE2.png?0a8ae" alt="Obsidian">
-
-<h1>Obsidian Store</h1>
-
+<h1>ᴏʙsɪᴅɪᴀɴ sᴛᴏʀᴇ</h1>
 <img src="https://minecraft.wiki/images/Obsidian_JE3_BE2.png?0a8ae" alt="Obsidian">
-
 </div>
 
 <div class="ip-box">
-
 <span class="label">MINECRAFT</span>
-
 <span class="separator">|</span>
-
 <span class="ip" id="serverIP">play.obsidiansmp.net</span>
-
 <span class="separator">|</span>
-
 <button onclick="copyIP()">Copy IP</button>
-
 </div>
 
 </div>
-
-<section id="ranks">
-
-<h2>Ranks</h2>
-
-<div class="rank-card">
-<h3>Example Rank</h3>
-<p>Replace this with your first rank description.</p>
-</div>
-
-<div class="rank-card">
-<h3>Example Rank</h3>
-<p>Replace this with your second rank description.</p>
-</div>
-
-<div class="rank-card">
-<h3>Example Rank</h3>
-<p>Replace this with your third rank description.</p>
-</div>
-
-</section>
 
 <script>
-
 function copyIP(){
-
 const ip=document.getElementById("serverIP").innerText;
-
 navigator.clipboard.writeText(ip);
-
 const btn=document.querySelector("button");
-
 btn.innerText="Copied!";
-
 setTimeout(()=>{
-btn.innerText="Copy IP";
+    btn.innerText="Copy IP";
 },2000);
-
 }
-
 </script>
 
 </body>
