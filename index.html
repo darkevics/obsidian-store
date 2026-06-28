@@ -550,7 +550,7 @@
     </div>
 
     <div class="video-background">
-        <iframe src="https://www.youtube-nocookie.com/embed/atgjKEgSqSU?autoplay=1&loop=1&playlist=atgjKEgSqSU&controls=0&showinfo=0&rel=0&iv_load_policy=3&playsinline=1&disablekb=1&modestbranding=1&mute=1" allow="autoplay; encrypted-media"></iframe>
+        <iframe src="https://www.youtube-nocookie.com/embed/1u-nMQp2UTI?autoplay=1&loop=1&playlist=1u-nMQp2UTI&controls=0&showinfo=0&rel=0&iv_load_policy=3&playsinline=1&disablekb=1&modestbranding=1&mute=1" allow="autoplay; encrypted-media"></iframe>
     </div>
 
     <div id="audioEngineContainer">
@@ -648,27 +648,27 @@
 
     <script>
         let audioPlayer;
-        const SONG_ID = 'atgjKEgSqSU'; // Aria Math exact target streaming identifier linked
+        const SONG_ID = 'atgjKEgSqSU'; // Aria Math background stream identifier
 
         function onYouTubeIframeAPIReady() {
             audioPlayer = new YT.Player('hiddenAudioPlayer', {
                 width: '1px',
                 height: '1px',
                 videoId: SONG_ID,
-                host: 'https://www.youtube-nocookie.com', // Strict No-Ad target proxy structure integration
+                host: 'https://www.youtube-nocookie.com', // Strict No-Ad configuration wrapper
                 playerVars: {
                     autoplay: 1,
                     controls: 0,
                     showinfo: 0,
                     rel: 0,
-                    iv_load_policy: 3, // Strip out internal annotations/cards where ad banners can load
+                    iv_load_policy: 3, 
                     playsinline: 1,
                     disablekb: 1,
-                    modestbranding: 1, // Completely drops promotional overlays
+                    modestbranding: 1, 
                     loop: 1,
                     playlist: SONG_ID,
                     origin: window.location.origin,
-                    mute: 1 // Start muted to bypass browser security auto-blocking flags instantly
+                    mute: 1 // Initially muted to safely bypass browser blocking rules
                 },
                 events: {
                     'onReady': onAudioEngineReady,
@@ -678,26 +678,23 @@
         }
 
         function onAudioEngineReady(event) {
-            // Instantly instructs YouTube's data server to start buffering and playing the song
             event.target.playVideo();
-            // Immediate un-mute push to bypass blocking locks on compliant devices
             event.target.unMute();
         }
 
         function onAudioEngineStateChange(event) {
-            // State: 1 means verified PLAYING state. This tracks exactly when actual music bits stream into user's audio cards.
+            // When Aria Math successfully loads and plays, un-mute it and update status text instantly
             if (event.data == YT.PlayerState.PLAYING) {
                 const loader = document.getElementById('loadingStatusText');
                 const trackLabel = document.getElementById('trackStatusText');
                 
-                // Enforce absolute unmute command verification check
                 event.target.unMute();
 
                 if (loader.classList.contains('visible')) {
                     loader.classList.remove('visible');
                     setTimeout(() => {
                         trackLabel.classList.add('visible');
-                    }, 400); // 400ms quick-switch text animation transition delay
+                    }, 400); 
                 }
             }
 
@@ -749,7 +746,7 @@
             document.body.appendChild(ripple);
             setTimeout(() => { ripple.remove(); }, 500);
 
-            // If browser engine blocks background autoplay policies, user's first window click instantly executes force-unmute
+            // User interface handshake fallback un-mute trigger
             if (audioPlayer && typeof audioPlayer.unMute === 'function') {
                 audioPlayer.unMute();
             }
@@ -769,7 +766,6 @@
             document.getElementById('wifiWarning').classList.remove('show');
         }
 
-        // Listen for real-time network connection changes
         window.addEventListener('offline', checkNetworkStatus);
         window.addEventListener('online', checkNetworkStatus);
 
@@ -779,7 +775,6 @@
             loadingBar.style.width = '100%'; 
             setTimeout(() => { loadingBar.style.opacity = '0'; }, 400);
 
-            // Initial verification of online state on page mount
             checkNetworkStatus();
         });
     </script>
