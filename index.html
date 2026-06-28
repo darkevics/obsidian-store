@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OBSIDIAN STORE</title>
+    <title>Obsidian Store</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         /* Smooth Scrolling Enable */
@@ -215,7 +215,7 @@
             align-items: center;
             justify-content: center;
             font-size: 0.8rem;
-            padding-left: 2px; /* Centers the play triangle triangle visually */
+            padding-left: 2px;
         }
         .play-pause-btn:hover {
             background-color: #a855f7;
@@ -238,7 +238,7 @@
         }
 
         .timeline-progress {
-            width: 60%; /* Represents current track time */
+            width: 0%; 
             height: 100%;
             background-color: #ffffff;
             border-radius: 2px;
@@ -268,6 +268,7 @@
             display: flex;
             flex-direction: column;
             line-height: 1.2;
+            min-width: 100px;
         }
 
         .track-title {
@@ -275,6 +276,10 @@
             font-family: 'Poppins', sans-serif;
             font-weight: 700;
             font-size: 0.95rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 150px;
         }
 
         .track-artist {
@@ -292,7 +297,7 @@
             border: 1px solid #333333;
             box-shadow: 0 0 8px rgba(255, 94, 0, 0.4);
             animation: spinRecord 4s linear infinite;
-            animation-play-state: running;
+            animation-play-state: paused; 
         }
 
         @keyframes spinRecord {
@@ -585,7 +590,7 @@
     <div class="top-loading-bar" id="loadingBar"></div>
 
     <div class="video-background">
-        <iframe src="https://www.youtube.com/embed/1u-nMQp2UTI?autoplay=1&loop=1&playlist=1u-nMQp2UTI&controls=0&showinfo=0&rel=0&iv_load_policy=3&playsinline=1&disablekb=1&modestbranding=1" allow="autoplay; encrypted-media"></iframe>
+        <div id="ytPlayer"></div>
     </div>
 
     <div class="cursor-dot" id="customDot"></div>
@@ -598,35 +603,35 @@
             <div class="nav-links">
                 <a href="#">Top</a>
                 <span class="divider">|</span>
-                <a href="#ranks-section">RANKS</a>
+                <a href="#ranks-section">Ranks</a>
             </div>
 
             <div class="music-player-widget">
                 <div class="player-controls">
-                    <button class="player-btn active-toggle">🔀</button>
-                    <button class="player-btn">⏮</button>
-                    <button class="player-btn play-pause-btn">▶</button>
-                    <button class="player-btn">⏭</button>
-                    <button class="player-btn">🔁</button>
+                    <button class="player-btn" id="shuffleBtn" onclick="toggleShuffle()">🔀</button>
+                    <button class="player-btn" onclick="prevTrack()">⏮</button>
+                    <button class="player-btn play-pause-btn" id="playPauseBtn" onclick="togglePlayPause()">▶</button>
+                    <button class="player-btn" onclick="nextTrack()">⏭</button>
+                    <button class="player-btn" id="loopBtn" onclick="toggleLoop()">🔁</button>
                 </div>
 
                 <div class="track-timeline">
-                    <span>3:45</span>
-                    <div class="timeline-bar">
-                        <div class="timeline-progress"></div>
+                    <span id="currentTime">0:00</span>
+                    <div class="timeline-bar" id="timelineBar">
+                        <div class="timeline-progress" id="timelineProgress"></div>
                     </div>
-                    <span>-2:32</span>
+                    <span id="totalTime">0:00</span>
                 </div>
 
                 <div class="track-meta">
                     <div class="track-details">
-                        <span class="track-title">Biome Fest</span>
-                        <span class="track-artist">C418</span>
+                        <span class="track-title" id="trackTitle">Loading...</span>
+                        <span class="track-artist" id="trackArtist">Minecraft OST</span>
                     </div>
-                    <div class="track-album-art"></div>
+                    <div class="track-album-art" id="albumArt"></div>
                 </div>
 
-                <div class="volume-control">🔊</div>
+                <div class="volume-control" id="volumeBtn" onclick="toggleMute()">🔊</div>
             </div>
         </nav>
 
@@ -698,7 +703,134 @@
 
     </div>
 
+    <script src="https://www.youtube.com/iframe_api"></script>
+
     <script>
+        let player;
+        let timeUpdateTimer;
+        let isMuted = false;
+        let isLooping = true; 
+        let isShuffled = false;
+
+        // Your chosen single video track ID
+        const VIDEO_ID = 'atgjKEgSqSU'; 
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('ytPlayer', {
+                width: '100%',
+                height: '100%',
+                videoId: VIDEO_ID,
+                playerVars: {
+                    autoplay: 1,
+                    controls: 0,
+                    showinfo: 0,
+                    rel: 0,
+                    iv_load_policy: 3,
+                    playsinline: 1,
+                    disablekb: 1,
+                    modestbranding: 1,
+                    loop: 1,
+                    playlist: VIDEO_ID 
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            player.playVideo();
+            document.getElementById('loopBtn').classList.add('active-toggle');
+            updateTrackMeta();
+        }
+
+        function onPlayerStateChange(event) {
+            const playPauseBtn = document.getElementById('playPauseBtn');
+            const albumArt = document.getElementById('albumArt');
+
+            if (event.data == YT.PlayerState.PLAYING) {
+                playPauseBtn.textContent = '⏸';
+                albumArt.style.animationPlayState = 'running';
+                updateTrackMeta();
+                startTimeProgress();
+            } else {
+                playPauseBtn.textContent = '▶';
+                albumArt.style.animationPlayState = 'paused';
+                clearInterval(timeUpdateTimer);
+            }
+
+            if (event.data == YT.PlayerState.ENDED && isLooping) {
+                player.playVideo();
+            }
+        }
+
+        function togglePlayPause() {
+            if (!player) return;
+            const state = player.getPlayerState();
+            if (state == YT.PlayerState.PLAYING) {
+                player.pauseVideo();
+            } else {
+                player.playVideo();
+            }
+        }
+
+        function nextTrack() { player && player.seekTo(0); }
+        function prevTrack() { player && player.seekTo(0); }
+
+        function toggleLoop() {
+            isLooping = !isLooping;
+            document.getElementById('loopBtn').classList.toggle('active-toggle', isLooping);
+        }
+
+        function toggleShuffle() {}
+
+        function toggleMute() {
+            if (!player) return;
+            isMuted = !isMuted;
+            if (isMuted) {
+                player.mute();
+                document.getElementById('volumeBtn').textContent = '🔇';
+            } else {
+                player.unmute();
+                document.getElementById('volumeBtn').textContent = '🔊';
+            }
+        }
+
+        function updateTrackMeta() {
+            if (!player || typeof player.getVideoData !== 'function') return;
+            const videoData = player.getVideoData();
+            if (videoData && videoData.title) {
+                document.getElementById('trackTitle').textContent = videoData.title;
+                document.getElementById('trackArtist').textContent = videoData.author || "YouTube Audio";
+            }
+        }
+
+        function formatTime(seconds) {
+            if (isNaN(seconds)) return "0:00";
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return mins + ":" + (secs < 10 ? "0" : "") + secs;
+        }
+
+        function startTimeProgress() {
+            clearInterval(timeUpdateTimer);
+            timeUpdateTimer = setInterval(() => {
+                if (!player || typeof player.getCurrentTime !== 'function') return;
+                const current = player.getCurrentTime();
+                const total = player.getDuration();
+                
+                document.getElementById('currentTime').textContent = formatTime(current);
+                document.getElementById('totalTime').textContent = formatTime(total);
+
+                if (total > 0) {
+                    const pct = (current / total) * 100;
+                    document.getElementById('timelineProgress').style.width = pct + '%';
+                }
+            }, 500);
+        }
+
+        // --- CLIPBOARD LOGIC ---
         function copyIpAddress() {
             navigator.clipboard.writeText('play.obsidiansmp.net');
             const btn = document.getElementById('mcBtn');
@@ -749,6 +881,5 @@
             setTimeout(() => { loadingBar.style.opacity = '0'; }, 400);
         });
     </script>
-
 </body>
 </html>
