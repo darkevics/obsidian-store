@@ -56,7 +56,7 @@
             100% { width: 95%; }
         }
 
-        /* --- RESTORED: ABSTRACT VIDEO BACKGROUND VISUAL --- */
+        /* --- ABSTRACT VISUAL VIDEO BACKGROUND --- */
         .video-background {
             position: fixed;
             top: 0;
@@ -80,8 +80,8 @@
             pointer-events: none;
         }
 
-        /* Hidden placeholder for the audio player API */
-        #audioPlayerContainer {
+        /* Completely hides the background audio engine container */
+        #audioEngineContainer {
             display: none;
         }
 
@@ -138,19 +138,19 @@
             100% { width: 60px; height: 60px; opacity: 0; }
         }
 
-        /* --- STYLISH MUSIC PLAYER NAVBAR BAR --- */
+        /* --- NAVBAR BAR WITH CLEAN AUTOMATED SIDE-BY-SIDE DESIGN --- */
         .navbar {
             background-color: rgba(0, 0, 0, 0.8);
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
-            padding: 12px 40px;
+            padding: 16px 40px;
             border-bottom: 2px solid #141414;
             position: sticky;
             top: 0;
             z-index: 100;
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            justify-content: space-between; 
         }
 
         .nav-links {
@@ -174,151 +174,47 @@
             font-weight: 800;
         }
 
-        /* Media Player Elements inside the bar */
-        .music-player-widget {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            font-family: monospace;
-            font-size: 0.9rem;
-            color: #777777;
-        }
-
-        .player-controls {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .player-btn {
-            background: none;
-            border: none;
-            color: #aaaaaa;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: color 0.2s, transform 0.1s;
-        }
-        .player-btn:hover {
-            color: #a855f7;
-        }
-        .player-btn:active {
-            transform: scale(0.9);
-        }
-
-        .player-btn.active-toggle {
-            color: #a855f7;
-            text-shadow: 0 0 8px rgba(168, 85, 247, 0.6);
-        }
-
-        .play-pause-btn {
-            background-color: #ffffff;
-            color: #0b0b0b;
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.8rem;
-            padding-left: 2px;
-        }
-        .play-pause-btn:hover {
-            background-color: #a855f7;
-            color: #ffffff;
-            box-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
-        }
-
-        .track-timeline {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .timeline-bar {
-            width: 260px;
-            height: 4px;
-            background-color: #222222;
-            border-radius: 2px;
-            position: relative;
-        }
-
-        .timeline-progress {
-            width: 0%; 
-            height: 100%;
-            background-color: #ffffff;
-            border-radius: 2px;
-            position: relative;
-        }
-
-        .timeline-progress::after {
-            content: '';
-            position: absolute;
-            right: -4px;
-            top: -3px;
-            width: 10px;
-            height: 10px;
-            background-color: #ffffff;
-            border-radius: 50%;
-            box-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
-        }
-
-        .track-meta {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            text-align: left;
-        }
-
-        .track-details {
-            display: flex;
-            flex-direction: column;
-            line-height: 1.2;
-            min-width: 100px;
-        }
-
-        .track-title {
-            color: #ffffff;
+        /* --- AUDIO STATUS WIDGET SYSTEM (NO PHYSICAL CONTROLS) --- */
+        .audio-status-container {
             font-family: 'Poppins', sans-serif;
-            font-weight: 700;
             font-size: 0.95rem;
+            font-weight: 600;
+            color: #888888;
+            position: relative;
+            min-width: 160px;
+            text-align: right;
+            height: 24px;
+        }
+
+        .audio-status-text {
+            position: absolute;
+            right: 0;
+            top: 0;
             white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            max-width: 150px;
+            transition: opacity 0.6s ease;
+            opacity: 0;
         }
 
-        .track-artist {
-            color: #666666;
-            font-family: 'Poppins', sans-serif;
-            font-weight: 500;
-            font-size: 0.8rem;
+        .audio-status-text.visible {
+            opacity: 1;
         }
 
-        .track-album-art {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background: radial-gradient(circle, #ff5e00 0%, #ff0000 100%);
-            border: 1px solid #333333;
-            box-shadow: 0 0 8px rgba(255, 94, 0, 0.4);
-            animation: spinRecord 4s linear infinite;
-            animation-play-state: paused; 
+        .loading-dots::after {
+            content: ' .';
+            animation: dotWave 1.5s steps(4, end) infinite;
         }
 
-        @keyframes spinRecord {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+        @keyframes dotWave {
+            0% { content: ' .'; }
+            33% { content: ' . .'; }
+            66% { content: ' . . .'; }
+            100% { content: ''; }
         }
 
-        .volume-control {
-            color: #aaaaaa;
-            font-size: 1.1rem;
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-        }
-        .volume-control:hover {
-            color: #ffffff;
+        .track-display {
+            color: #a855f7;
+            text-shadow: 0 0 10px rgba(168, 85, 247, 0.3);
+            font-weight: 700;
         }
 
         .container {
@@ -337,6 +233,7 @@
             justify-content: center;
             gap: 25px;
             letter-spacing: 0.5px;
+            text-transform: uppercase; 
         }
         .header-title img {
             width: 80px;
@@ -406,7 +303,7 @@
         .about-title {
             font-size: 3.5rem;
             font-weight: 900;
-            text-transform: uppercase;
+            text-transform: uppercase; 
             margin-bottom: 30px;
             letter-spacing: 1px;
         }
@@ -434,6 +331,7 @@
         .section-title {
             font-size: 3.5rem;
             font-weight: 900;
+            text-transform: uppercase; 
             margin-bottom: 50px;
             scroll-margin-top: 100px;
         }
@@ -481,7 +379,7 @@
             font-weight: 400;
         }
 
-        /* --- BUY BUTTON STYLES (MAGENTA & SWING ANIMATION) --- */
+        /* --- BUY BUTTON STYLES --- */
         .buy-btn {
             background-color: #ff00ff; 
             color: #ffffff;
@@ -522,32 +420,16 @@
         }
 
         /* --- MOBILE RESPONSIVE MEDIA QUERIES --- */
-        @media (max-width: 992px) {
-            .navbar {
-                flex-direction: column;
-                gap: 15px;
-                padding: 15px;
-                text-align: center;
-            }
-            .music-player-widget {
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 15px;
-            }
-            .timeline-bar {
-                width: 180px;
-            }
-        }
-
         @media (max-width: 768px) {
             .cursor-dot {
                 display: none !important;
             }
-            
             body {
                 padding-bottom: 60px;
             }
-
+            .navbar {
+                padding: 15px 20px;
+            }
             .header-title {
                 font-size: 2.3rem;
                 gap: 12px;
@@ -557,7 +439,6 @@
                 width: 45px;
                 height: 45px;
             }
-
             .ip-bar {
                 padding: 10px 14px;
                 gap: 8px;
@@ -567,11 +448,9 @@
                 padding: 5px 10px;
                 font-size: 0.75rem;
             }
-
             .about-title, .section-title {
                 font-size: 2.2rem;
             }
-
             .about-box {
                 padding: 25px 20px;
                 margin-bottom: 50px;
@@ -579,11 +458,9 @@
             .about-box p {
                 font-size: 0.95rem;
             }
-
             .ranks-grid {
                 gap: 45px; 
             }
-
             .card-container {
                 width: 100%;
             }
@@ -598,8 +475,8 @@
         <iframe src="https://www.youtube-nocookie.com/embed/1u-nMQp2UTI?autoplay=1&loop=1&playlist=1u-nMQp2UTI&controls=0&showinfo=0&rel=0&iv_load_policy=3&playsinline=1&disablekb=1&modestbranding=1&mute=1" allow="autoplay; encrypted-media"></iframe>
     </div>
 
-    <div id="audioPlayerContainer">
-        <div id="ytAudioPlayer"></div>
+    <div id="audioEngineContainer">
+        <div id="hiddenAudioPlayer"></div>
     </div>
 
     <div class="cursor-dot" id="customDot"></div>
@@ -610,37 +487,14 @@
 
         <nav class="navbar">
             <div class="nav-links">
-                <a href="#">Top</a>
+                <a href="#">TOP</a>
                 <span class="divider">|</span>
-                <a href="#ranks-section">Ranks</a>
+                <a href="#ranks-section">RANKS</a>
             </div>
 
-            <div class="music-player-widget">
-                <div class="player-controls">
-                    <button class="player-btn" id="shuffleBtn" onclick="toggleShuffle()">🔀</button>
-                    <button class="player-btn" onclick="prevTrack()">⏮</button>
-                    <button class="player-btn play-pause-btn" id="playPauseBtn" onclick="togglePlayPause()">▶</button>
-                    <button class="player-btn" onclick="nextTrack()">⏭</button>
-                    <button class="player-btn" id="loopBtn" onclick="toggleLoop()">🔁</button>
-                </div>
-
-                <div class="track-timeline">
-                    <span id="currentTime">0:00</span>
-                    <div class="timeline-bar" id="timelineBar">
-                        <div class="timeline-progress" id="timelineProgress"></div>
-                    </div>
-                    <span id="totalTime">0:00</span>
-                </div>
-
-                <div class="track-meta">
-                    <div class="track-details">
-                        <span class="track-title" id="trackTitle">Loading...</span>
-                        <span class="track-artist" id="trackArtist">Audio Stream</span>
-                    </div>
-                    <div class="track-album-art" id="albumArt"></div>
-                </div>
-
-                <div class="volume-control" id="volumeBtn" onclick="toggleMute()">🔊</div>
+            <div class="audio-status-container">
+                <div id="loadingStatusText" class="audio-status-text loading-dots visible">Loading audio</div>
+                <div id="trackStatusText" class="audio-status-text track-display">Aria math - C418</div>
             </div>
         </nav>
 
@@ -648,7 +502,7 @@
             
             <h1 class="header-title">
                 <img src="https://minecraft.wiki/images/Obsidian_JE3_BE2.png?0a8ae" alt="Obsidian Block Left">
-                Obsidian Store
+                OBSIDIAN STORE
                 <img src="https://minecraft.wiki/images/Obsidian_JE3_BE2.png?0a8ae" alt="Obsidian Block Right">
             </h1>
 
@@ -672,13 +526,13 @@
                 </div>
             </div>
 
-            <h2 class="about-title">About Us</h2>
+            <h2 class="about-title">ABOUT US</h2>
 
             <div class="about-box">
                 <p>Write your description here! As you keep adding more and more lines of text to this paragraph, this box will smoothly expand downwards automatically to fit everything perfectly without breaking your design.</p>
             </div>
 
-            <h2 id="ranks-section" class="section-title">Ranks</h2>
+            <h2 id="ranks-section" class="section-title">RANKS</h2>
 
             <div class="ranks-grid">
                 
@@ -715,20 +569,14 @@
     <script src="https://www.youtube.com/iframe_api"></script>
 
     <script>
-        let player;
-        let timeUpdateTimer;
-        let isMuted = false;
-        let isLooping = true; 
-        let isShuffled = false;
-
-        // Privacy-Enhanced Audio Track Link ID
-        const VIDEO_ID = 'atgjKEgSqSU'; 
+        let audioPlayer;
+        const SONG_ID = 'atgjKEgSqSU'; // Aria Math background stream target
 
         function onYouTubeIframeAPIReady() {
-            player = new YT.Player('ytAudioPlayer', {
+            audioPlayer = new YT.Player('hiddenAudioPlayer', {
                 width: '1px',
                 height: '1px',
-                videoId: VIDEO_ID,
+                videoId: SONG_ID,
                 playerVars: {
                     autoplay: 1,
                     controls: 0,
@@ -739,105 +587,36 @@
                     disablekb: 1,
                     modestbranding: 1,
                     loop: 1,
-                    playlist: VIDEO_ID,
+                    playlist: SONG_ID,
                     origin: window.location.origin
                 },
                 events: {
-                    'onReady': onPlayerReady,
-                    'onStateChange': onPlayerStateChange
+                    'onReady': onAudioEngineReady,
+                    'onStateChange': onAudioEngineStateChange
                 }
             });
         }
 
-        function onPlayerReady(event) {
-            player.playVideo();
-            document.getElementById('loopBtn').classList.add('active-toggle');
-            updateTrackMeta();
+        function onAudioEngineReady(event) {
+            event.target.playVideo();
         }
 
-        function onPlayerStateChange(event) {
-            const playPauseBtn = document.getElementById('playPauseBtn');
-            const albumArt = document.getElementById('albumArt');
-
+        function onAudioEngineStateChange(event) {
             if (event.data == YT.PlayerState.PLAYING) {
-                playPauseBtn.textContent = '⏸';
-                albumArt.style.animationPlayState = 'running';
-                updateTrackMeta();
-                startTimeProgress();
-            } else {
-                playPauseBtn.textContent = '▶';
-                albumArt.style.animationPlayState = 'paused';
-                clearInterval(timeUpdateTimer);
-            }
-
-            if (event.data == YT.PlayerState.ENDED && isLooping) {
-                player.playVideo();
-            }
-        }
-
-        function togglePlayPause() {
-            if (!player) return;
-            const state = player.getPlayerState();
-            if (state == YT.PlayerState.PLAYING) {
-                player.pauseVideo();
-            } else {
-                player.playVideo();
-            }
-        }
-
-        function nextTrack() { player && player.seekTo(0); }
-        function prevTrack() { player && player.seekTo(0); }
-
-        function toggleLoop() {
-            isLooping = !isLooping;
-            document.getElementById('loopBtn').classList.toggle('active-toggle', isLooping);
-        }
-
-        function toggleShuffle() {}
-
-        function toggleMute() {
-            if (!player) return;
-            isMuted = !isMuted;
-            if (isMuted) {
-                player.mute();
-                document.getElementById('volumeBtn').textContent = '🔇';
-            } else {
-                player.unmute();
-                document.getElementById('volumeBtn').textContent = '🔊';
-            }
-        }
-
-        function updateTrackMeta() {
-            if (!player || typeof player.getVideoData !== 'function') return;
-            const videoData = player.getVideoData();
-            if (videoData && videoData.title) {
-                document.getElementById('trackTitle').textContent = videoData.title;
-                document.getElementById('trackArtist').textContent = videoData.author || "YouTube Audio";
-            }
-        }
-
-        function formatTime(seconds) {
-            if (isNaN(seconds)) return "0:00";
-            const mins = Math.floor(seconds / 60);
-            const secs = Math.floor(seconds % 60);
-            return mins + ":" + (secs < 10 ? "0" : "") + secs;
-        }
-
-        function startTimeProgress() {
-            clearInterval(timeUpdateTimer);
-            timeUpdateTimer = setInterval(() => {
-                if (!player || typeof player.getCurrentTime !== 'function') return;
-                const current = player.getCurrentTime();
-                const total = player.getDuration();
+                const loader = document.getElementById('loadingStatusText');
+                const trackLabel = document.getElementById('trackStatusText');
                 
-                document.getElementById('currentTime').textContent = formatTime(current);
-                document.getElementById('totalTime').textContent = formatTime(total);
-
-                if (total > 0) {
-                    const pct = (current / total) * 100;
-                    document.getElementById('timelineProgress').style.width = pct + '%';
+                if (loader.classList.contains('visible')) {
+                    loader.classList.remove('visible');
+                    setTimeout(() => {
+                        trackLabel.classList.add('visible');
+                    }, 600);
                 }
-            }, 500);
+            }
+
+            if (event.data == YT.PlayerState.ENDED) {
+                audioPlayer.playVideo();
+            }
         }
 
         // --- CLIPBOARD LOGIC ---
