@@ -1,19 +1,147 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Obsidian SMP Store</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Obsidian Store</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#0f0f0f;
+    color:white;
+    font-family:Poppins,sans-serif;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+}
+
+.container{
+    text-align:center;
+}
+
+.logo{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:30px;
+    margin-bottom:35px;
+}
+
+.logo img{
+    width:80px;
+    image-rendering:pixelated;
+}
+
+.logo h1{
+    font-size:70px;
+    font-weight:800;
+    letter-spacing:4px;
+}
+
+.ip-box{
+    display:inline-flex;
+    align-items:center;
+    gap:18px;
+    background:#1b1b1b;
+    padding:18px 28px;
+    border-radius:15px;
+    border:2px solid #333;
+    font-size:22px;
+}
+
+.label{
+    color:#bbbbbb;
+    font-weight:700;
+}
+
+.separator{
+    color:#555;
+}
+
+.ip{
+    color:#9b6dff;
+    font-weight:700;
+}
+
+button{
+    background:#7a3cff;
+    color:white;
+    border:none;
+    padding:12px 22px;
+    border-radius:10px;
+    font-size:17px;
+    cursor:pointer;
+    transition:.2s;
+}
+
+button:hover{
+    background:#9358ff;
+    transform:scale(1.05);
+}
+
+</style>
+
 </head>
-<body style="background:#111;color:white;font-family:Arial;text-align:center;">
+<body>
 
-    <h1>🪨 Obsidian SMP</h1>
+<div class="container">
 
-    <h2>Official Server Store</h2>
+<div class="logo">
 
-    <p>Welcome to the official Obsidian SMP store!</p>
+<img src="https://static.wikia.nocookie.net/minecraft_gamepedia/images/6/64/Obsidian_JE5_BE3.png" alt="Obsidian">
 
-    <button>Browse Store</button>
+<h1>ᴏʙsɪᴅɪᴀɴ sᴛᴏʀᴇ</h1>
+
+<img src="https://static.wikia.nocookie.net/minecraft_gamepedia/images/6/64/Obsidian_JE5_BE3.png" alt="Obsidian">
+
+</div>
+
+<div class="ip-box">
+
+<span class="label">MINECRAFT</span>
+
+<span class="separator">|</span>
+
+<span class="ip" id="serverIP">play.obsidiansmp.net</span>
+
+<span class="separator">|</span>
+
+<button onclick="copyIP()">Copy IP</button>
+
+</div>
+
+</div>
+
+<script>
+
+function copyIP(){
+
+const ip=document.getElementById("serverIP").innerText;
+
+navigator.clipboard.writeText(ip);
+
+const btn=document.querySelector("button");
+
+btn.innerText="Copied!";
+
+setTimeout(()=>{
+btn.innerText="Copy IP";
+},2000);
+
+}
+
+</script>
 
 </body>
 </html>
