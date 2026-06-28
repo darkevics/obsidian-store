@@ -133,33 +133,182 @@
             100% { width: 60px; height: 60px; opacity: 0; }
         }
 
-        /* --- PAGE LAYOUT & STYLING --- */
+        /* --- STYLISH MUSIC PLAYER NAVBAR BAR --- */
         .navbar {
             background-color: rgba(0, 0, 0, 0.8);
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
-            padding: 18px 40px;
-            text-align: left;
+            padding: 12px 40px;
             border-bottom: 2px solid #141414;
             position: sticky;
             top: 0;
             z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
-        .navbar a {
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links a {
             color: #ffffff;
             text-decoration: none;
             font-weight: 800;
             font-size: 1.1rem;
-            margin-right: 15px;
             transition: color 0.3s ease; 
         }
-        .navbar a:hover {
+        .nav-links a:hover {
             color: #a855f7;
         }
-        .navbar span {
+        .nav-links .divider {
             color: #333333;
-            margin-right: 15px;
+            margin: 0 15px;
             font-weight: 800;
+        }
+
+        /* Media Player Elements inside the bar */
+        .music-player-widget {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            font-family: monospace;
+            font-size: 0.9rem;
+            color: #777777;
+        }
+
+        .player-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .player-btn {
+            background: none;
+            border: none;
+            color: #aaaaaa;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: color 0.2s, transform 0.1s;
+        }
+        .player-btn:hover {
+            color: #a855f7;
+        }
+        .player-btn:active {
+            transform: scale(0.9);
+        }
+
+        .player-btn.active-toggle {
+            color: #a855f7;
+            text-shadow: 0 0 8px rgba(168, 85, 247, 0.6);
+        }
+
+        .play-pause-btn {
+            background-color: #ffffff;
+            color: #0b0b0b;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            padding-left: 2px; /* Centers the play triangle triangle visually */
+        }
+        .play-pause-btn:hover {
+            background-color: #a855f7;
+            color: #ffffff;
+            box-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
+        }
+
+        .track-timeline {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .timeline-bar {
+            width: 260px;
+            height: 4px;
+            background-color: #222222;
+            border-radius: 2px;
+            position: relative;
+        }
+
+        .timeline-progress {
+            width: 60%; /* Represents current track time */
+            height: 100%;
+            background-color: #ffffff;
+            border-radius: 2px;
+            position: relative;
+        }
+
+        .timeline-progress::after {
+            content: '';
+            position: absolute;
+            right: -4px;
+            top: -3px;
+            width: 10px;
+            height: 10px;
+            background-color: #ffffff;
+            border-radius: 50%;
+            box-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
+        }
+
+        .track-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-align: left;
+        }
+
+        .track-details {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+        }
+
+        .track-title {
+            color: #ffffff;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+
+        .track-artist {
+            color: #666666;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            font-size: 0.8rem;
+        }
+
+        .track-album-art {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #ff5e00 0%, #ff0000 100%);
+            border: 1px solid #333333;
+            box-shadow: 0 0 8px rgba(255, 94, 0, 0.4);
+            animation: spinRecord 4s linear infinite;
+            animation-play-state: running;
+        }
+
+        @keyframes spinRecord {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .volume-control {
+            color: #aaaaaa;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        .volume-control:hover {
+            color: #ffffff;
         }
 
         .container {
@@ -322,9 +471,9 @@
             font-weight: 400;
         }
 
-        /* --- UPDATED BUY BUTTON STYLES (MAGENTA & SWING ANIMATION) --- */
+        /* --- BUY BUTTON STYLES (MAGENTA & SWING ANIMATION) --- */
         .buy-btn {
-            background-color: #ff00ff; /* Solid Magenta */
+            background-color: #ff00ff; 
             color: #ffffff;
             border: none;
             border-radius: 12px;
@@ -337,24 +486,19 @@
             text-decoration: none; 
             display: inline-block;
             box-shadow: 0 0 15px rgba(255, 0, 255, 0.4);
-            transform-origin: top center; /* Makes the swing pivot from the top edge */
+            transform-origin: top center; 
             transition: background-color 0.2s, box-shadow 0.2s;
             z-index: 5;
         }
         .buy-btn:hover {
-            background-color: #d400d4; /* Darker magenta on hover */
+            background-color: #d400d4; 
             box-shadow: 0 0 25px rgba(255, 0, 255, 0.8);
             animation: swingSideToSide 0.6s ease-in-out infinite alternate;
         }
 
-        /* Side to Side Swinging Animation Keyframes */
         @keyframes swingSideToSide {
-            0% {
-                transform: rotate(-6deg);
-            }
-            100% {
-                transform: rotate(6deg);
-            }
+            0% { transform: rotate(-6deg); }
+            100% { transform: rotate(6deg); }
         }
 
         /* --- DESKTOP SPECIFIC CURSOR CONFIG --- */
@@ -368,6 +512,23 @@
         }
 
         /* --- MOBILE RESPONSIVE MEDIA QUERIES --- */
+        @media (max-width: 992px) {
+            .navbar {
+                flex-direction: column;
+                gap: 15px;
+                padding: 15px;
+                text-align: center;
+            }
+            .music-player-widget {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+            .timeline-bar {
+                width: 180px;
+            }
+        }
+
         @media (max-width: 768px) {
             .cursor-dot {
                 display: none !important;
@@ -375,10 +536,6 @@
             
             body {
                 padding-bottom: 60px;
-            }
-
-            .navbar {
-                padding: 15px 20px;
             }
 
             .header-title {
@@ -428,7 +585,7 @@
     <div class="top-loading-bar" id="loadingBar"></div>
 
     <div class="video-background">
-        <iframe src="https://www.youtube.com/embed/1u-nMQp2UTI?autoplay=1&mute=1&loop=1&playlist=1u-nMQp2UTI&controls=0&showinfo=0&rel=0&iv_load_policy=3&playsinline=1&disablekb=1&modestbranding=1" allow="autoplay; encrypted-media"></iframe>
+        <iframe src="https://www.youtube.com/embed/1u-nMQp2UTI?autoplay=1&loop=1&playlist=1u-nMQp2UTI&controls=0&showinfo=0&rel=0&iv_load_policy=3&playsinline=1&disablekb=1&modestbranding=1" allow="autoplay; encrypted-media"></iframe>
     </div>
 
     <div class="cursor-dot" id="customDot"></div>
@@ -438,9 +595,39 @@
     <div class="page-wrapper">
 
         <nav class="navbar">
-            <a href="#">Top</a>
-            <span>|</span>
-            <a href="#ranks-section">Ranks</a>
+            <div class="nav-links">
+                <a href="#">Top</a>
+                <span class="divider">|</span>
+                <a href="#ranks-section">Ranks</a>
+            </div>
+
+            <div class="music-player-widget">
+                <div class="player-controls">
+                    <button class="player-btn active-toggle">🔀</button>
+                    <button class="player-btn">⏮</button>
+                    <button class="player-btn play-pause-btn">▶</button>
+                    <button class="player-btn">⏭</button>
+                    <button class="player-btn">🔁</button>
+                </div>
+
+                <div class="track-timeline">
+                    <span>3:45</span>
+                    <div class="timeline-bar">
+                        <div class="timeline-progress"></div>
+                    </div>
+                    <span>-2:32</span>
+                </div>
+
+                <div class="track-meta">
+                    <div class="track-details">
+                        <span class="track-title">Biome Fest</span>
+                        <span class="track-artist">C418</span>
+                    </div>
+                    <div class="track-album-art"></div>
+                </div>
+
+                <div class="volume-control">🔊</div>
+            </div>
         </nav>
 
         <div class="container">
