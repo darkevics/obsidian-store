@@ -442,24 +442,25 @@
             100% { transform: rotate(6deg); }
         }
 
-        /* --- NEW ACCORDION FAQ SYSTEM (MATCHES UPLOADED DESIGN) --- */
+        /* --- ACCORDION FAQ SYSTEM (PURPLE OBSIDIAN SKIN) --- */
         .faq-wrapper {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 15px;
             width: 100%;
         }
 
         .faq-item {
-            background-color: #111317; /* Dark grayish blue from image */
+            background-color: #111317; 
             border: 1px solid #1e222b;
             border-radius: 12px;
             overflow: hidden;
-            transition: border-color 0.3s ease;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
         .faq-item.active {
-            border: 2px solid #eab308; /* Yellow accent border on active */
+            border: 2px solid #a855f7; /* Changed from yellow to beautiful purple */
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.15);
         }
 
         .faq-trigger {
@@ -480,7 +481,6 @@
             transition: color 0.2s ease;
         }
 
-        /* Custom graphic close icon modeled precisely after image layout */
         .faq-icon {
             color: #888;
             font-size: 1.2rem;
@@ -490,11 +490,10 @@
         }
 
         .faq-item.active .faq-icon {
-            transform: rotate(45deg); /* Flips + into a cleanly calculated × closer element */
-            color: #eab308;
+            transform: rotate(45deg); 
+            color: #a855f7; /* Purple active icon toggle */
         }
 
-        /* Top Separator line triggered only when active state expands */
         .faq-content-container {
             max-height: 0;
             overflow: hidden;
@@ -503,7 +502,7 @@
 
         .faq-inner-body {
             padding: 0 25px 25px 25px;
-            color: #8a8f9d; /* Subdued text color from image */
+            color: #8a8f9d; 
             font-size: 0.98rem;
             line-height: 1.6;
             font-weight: 400;
@@ -511,7 +510,7 @@
         }
 
         .faq-item.active .faq-inner-body {
-            border-top-color: #eab308; /* Inner warning highlight bar separating layout */
+            border-top-color: #a855f7; /* Purple separating inline highlight divider */
             padding-top: 20px;
         }
 
@@ -781,6 +780,42 @@
                             </div>
                         </div>
 
+                        <div class="faq-item">
+                            <button class="faq-trigger" onclick="toggleFaq(this)">
+                                <span>Where do I open a support ticket?</span>
+                                <span class="faq-icon">+</span>
+                            </button>
+                            <div class="faq-content-container">
+                                <div class="faq-inner-body">
+                                    If you run into any transaction errors, navigate over to our official community Discord platform and trigger an automated request layout widget inside our dedicated help desk rooms.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <button class="faq-trigger" onclick="toggleFaq(this)">
+                                <span>Do ranks reset on map wipes?</span>
+                                <span class="faq-icon">+</span>
+                            </button>
+                            <div class="faq-content-container">
+                                <div class="faq-inner-body">
+                                    No, all premium ranks purchased through our portal are tied to your identity permanently and will remain active across any map transitions or development lifecycles.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <button class="faq-trigger" onclick="toggleFaq(this)">
+                                <span>Can I get a refund?</span>
+                                <span class="faq-icon">+</span>
+                            </button>
+                            <div class="faq-content-container">
+                                <div class="faq-inner-body">
+                                    Due to the immediate distribution of digital assets, all checkouts are final. Be sure to confirm your character identity inputs accurately prior to settling invoices.
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
@@ -860,15 +895,13 @@
             },2000);
         }
 
-        /* --- ACCORDION FUNCTIONAL HANDLER --- */
+        /* --- ACCORDION FAQ CONTROLLER --- */
         function toggleFaq(buttonElement) {
             const faqItem = buttonElement.parentElement;
             const contentContainer = buttonElement.nextElementSibling;
-            
-            // Check if item is already active
             const isActive = faqItem.classList.contains('active');
             
-            // Optional: Close all other open FAQ items first (Clean view setup)
+            // Closes other open elements for a cleaner UX flow
             document.querySelectorAll('.faq-item').forEach(item => {
                 item.classList.remove('active');
                 item.querySelector('.faq-content-container').style.maxHeight = null;
@@ -876,7 +909,6 @@
 
             if (!isActive) {
                 faqItem.classList.add('active');
-                // Dynamically sets exact inner wrapper height to trigger a clean CSS transition
                 contentContainer.style.maxHeight = contentContainer.scrollHeight + "px";
             } else {
                 faqItem.classList.remove('active');
