@@ -81,16 +81,14 @@
             pointer-events: none;
         }
 
-        /* Safely position the hidden player so it streams active data */
+        /* Hidden audio container */
         #audioEngineContainer {
-            position: fixed;
-            bottom: 10px;
-            right: 10px;
-            width: 10px;
-            height: 10px;
-            opacity: 0.01;
-            z-index: -3;
-            pointer-events: none;
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
         }
 
         /* Dark Tint Overlay over the video wallpaper */
@@ -109,15 +107,15 @@
         .page-wrapper {
             position: relative;
             z-index: 10;
-            width:100%;
-            min-height:100vh;
-            opacity:0;
-            animation:fadeIn .6s ease forwards;
-            animation-delay:.3s;
+            width: 100%;
+            min-height: 100vh;
+            opacity: 0;
+            animation: fadeIn .6s ease forwards;
+            animation-delay: .3s;
         }
-        @keyframes fadeIn{
-            from{opacity:0;}
-            to{opacity:1;}
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         /* --- CUSTOM MOUSE TRACKING EFFECTS --- */
@@ -154,7 +152,7 @@
             100% { width: 60px; height: 60px; opacity: 0; }
         }
 
-        /* --- NAVBAR --- */
+        /* --- NAVBAR BAR WITH CLEAN AUTOMATED SIDE-BY-SIDE DESIGN --- */
         .navbar {
             background-color: rgba(0, 0, 0, 0.8);
             backdrop-filter: blur(8px);
@@ -190,89 +188,46 @@
             font-weight: 800;
         }
 
-        /* --- AUDIO CONTROLLER GLASS PANEL --- */
-        .audio-ui-panel {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            background: rgba(20, 20, 20, 0.6);
-            border: 1px solid #222222;
-            padding: 6px 16px;
-            border-radius: 30px;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+        /* --- AUDIO STATUS WIDGET SYSTEM --- */
+        .audio-status-container {
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #888888;
+            position: relative;
+            min-width: 160px;
+            text-align: right;
+            height: 24px;
         }
 
-        .audio-track-info {
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: #aaaaaa;
+        .audio-status-text {
+            position: absolute;
+            right: 0;
+            top: 0;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.6s ease;
+        }
+
+        .now-playing-display {
+            color: #888888;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .track-display {
+            color: #a855f7;
+            text-shadow: 0 0 10px rgba(168, 85, 247, 0.3);
+            font-weight: 800;
             letter-spacing: 0.5px;
         }
 
-        .audio-track-info span {
-            color: #a855f7;
+        .fade-in {
+            opacity: 1 !important;
         }
 
-        .audio-ui-btn {
-            background: transparent;
-            border: none;
-            color: #ffffff;
-            font-size: 1rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            transition: background 0.2s, color 0.2s, transform 0.1s;
-        }
-
-        .audio-ui-btn:hover {
-            background: rgba(168, 85, 247, 0.2);
-            color: #a855f7;
-        }
-
-        .audio-ui-btn:active {
-            transform: scale(0.95);
-        }
-
-        /* Animated Soundwaves */
-        .soundwave-icon {
-            display: flex;
-            align-items: flex-end;
-            gap: 2px;
-            width: 16px;
-            height: 14px;
-        }
-
-        .soundwave-bar {
-            width: 3px;
-            height: 100%;
-            background-color: #ffffff;
-            border-radius: 2px;
-            animation: bounce-wave 0.8s ease-in-out infinite alternate;
-            animation-play-state: paused;
-        }
-
-        .soundwave-bar:nth-child(2) { animation-duration: 0.5s; }
-        .soundwave-bar:nth-child(3) { animation-duration: 0.7s; }
-
-        .playing .soundwave-bar {
-            background-color: #a855f7;
-            animation-play-state: running;
-        }
-
-        .muted-state .soundwave-bar {
-            animation-play-state: paused !important;
-            height: 3px !important;
-            background-color: #555555;
-        }
-
-        @keyframes bounce-wave {
-            0% { height: 3px; }
-            100% { height: 14px; }
+        .fade-out {
+            opacity: 0 !important;
         }
 
         .container {
@@ -300,7 +255,7 @@
             filter: drop-shadow(0 0 8px rgba(168, 85, 247, 0.4));
         }
 
-        /* --- WIDGET CONTAINER --- */
+        /* --- WIDGET STACKED CONTAINER --- */
         .widgets-container {
             display: flex;
             flex-direction: column; 
@@ -310,6 +265,7 @@
             width: 100%;
         }
 
+        /* Server IP & Discord Widget Boxes */
         .ip-bar {
             background-color: rgba(17, 17, 17, 0.85);
             backdrop-filter: blur(6px);
@@ -385,7 +341,7 @@
             font-weight: 400;
         }
 
-        /* --- SHOP LAYOUT --- */
+        /* --- TWO-COLUMN WORKSPACE: RANKS & FAQ SIDE BY SIDE --- */
         .shop-layout-grid {
             display: grid;
             grid-template-columns: 1.1fr 0.9fr;
@@ -444,6 +400,7 @@
             font-weight: 400;
         }
 
+        /* --- BUY BUTTON STYLES --- */
         .buy-btn {
             background-color: #ff00ff;
             color: #ffffff;
@@ -474,7 +431,7 @@
             100% { transform: rotate(6deg); }
         }
 
-        /* --- ACCORDION FAQ --- */
+        /* --- ACCORDION FAQ SYSTEM --- */
         .faq-wrapper {
             display: flex;
             flex-direction: column;
@@ -609,7 +566,7 @@
         /* --- DESKTOP SPECIFIC CURSOR CONFIG --- */
         @media (hover: hover) and (pointer: fine) {
             body { cursor: none; }
-            a, button, .wifi-close-btn, .faq-trigger, .audio-ui-btn { cursor: none !important; }
+            a, button, .wifi-close-btn, .faq-trigger { cursor: none !important; }
         }
 
         /* --- MOBILE RESPONSIVE MEDIA QUERIES --- */
@@ -649,7 +606,9 @@
     </div>
 
     <div id="audioEngineContainer">
-        <div id="hiddenAudioPlayer"></div>
+        <audio id="bgAudio" loop>
+            <source src="https://codesandbox.io/p/sandbox/github/assets/ambient-loop.mp3" type="audio/mp3">
+        </audio>
     </div>
 
     <div class="cursor-dot" id="customDot"></div>
@@ -664,17 +623,10 @@
                 <span class="divider">|</span>
                 <a href="#shop-section">SHOP</a>
             </div>
-
-            <div class="audio-ui-panel" id="audioPanelContainer">
-                <div class="audio-track-info">♪ Background Music</div>
-                <button class="audio-ui-btn" id="playPauseBtn" onclick="togglePlayPause()">⏸</button>
-                <button class="audio-ui-btn" id="muteBtn" onclick="toggleMute()" title="Toggle Sound">
-                    <div class="soundwave-icon" id="soundwaveContainer">
-                        <div class="soundwave-bar"></div>
-                        <div class="soundwave-bar"></div>
-                        <div class="soundwave-bar"></div>
-                    </div>
-                </button>
+            
+            <div class="audio-status-container">
+                <div class="audio-status-text now-playing-display id-1 fade-in">♪ BACKGROUND TRACK:</div>
+                <div class="audio-status-text track-display id-2">STATION ACTIVE</div>
             </div>
         </nav>
 
@@ -818,113 +770,33 @@
         </div>
     </div>
 
-    <script src="https://www.youtube-nocookie.com/iframe_api"></script>
-
     <script>
-        let audioPlayer;
-        let isFirstInteraction = true;
-        // Synchronized to your exact original file's background video ID
-        const SONG_ID = '1u-nMQp2UTI'; 
+        const audio = document.getElementById('bgAudio');
+        let hasInteracted = false;
 
-        function onYouTubeIframeAPIReady() {
-            audioPlayer = new YT.Player('hiddenAudioPlayer', {
-                videoId: SONG_ID,
-                host: 'https://www.youtube-nocookie.com', 
-                playerVars: {
-                    autoplay: 1,
-                    controls: 0,
-                    showinfo: 0,
-                    rel: 0,
-                    iv_load_policy: 3, 
-                    playsinline: 1,
-                    disablekb: 1,
-                    modestbranding: 1, 
-                    loop: 1,
-                    playlist: SONG_ID,
-                    origin: window.location.origin,
-                    mute: 1 // Start muted to comply with browser autoplay security blocks
-                },
-                events: {
-                    'onReady': onAudioEngineReady,
-                    'onStateChange': onAudioEngineStateChange
-                }
-            });
-        }
-
-        function onAudioEngineReady(event) {
-            event.target.playVideo();
-            updateWidgetUI();
-        }
-
-        function onAudioEngineStateChange(event) {
-            const playPauseBtn = document.getElementById('playPauseBtn');
-            const panel = document.getElementById('audioPanelContainer');
-            
-            if (event.data == YT.PlayerState.PLAYING) {
-                playPauseBtn.textContent = '⏸';
-                if (audioPlayer && !audioPlayer.isMuted()) {
-                    panel.classList.add('playing');
-                }
+        // Custom Widget text cycles
+        let currentWidgetTextId = 1;
+        setInterval(() => {
+            const txt1 = document.querySelector('.audio-status-text.id-1');
+            const txt2 = document.querySelector('.audio-status-text.id-2');
+            if (currentWidgetTextId === 1) {
+                txt1.classList.remove('fade-in');
+                txt1.classList.add('fade-out');
+                setTimeout(() => {
+                    txt2.classList.remove('fade-out');
+                    txt2.classList.add('fade-in');
+                }, 400);
+                currentWidgetTextId = 2;
             } else {
-                playPauseBtn.textContent = '▶';
-                panel.classList.remove('playing');
+                txt2.classList.remove('fade-in');
+                txt2.classList.add('fade-out');
+                setTimeout(() => {
+                    txt1.classList.remove('fade-out');
+                    txt1.classList.add('fade-in');
+                }, 400);
+                currentWidgetTextId = 1;
             }
-        }
-
-        function togglePlayPause() {
-            if (!audioPlayer || typeof audioPlayer.getPlayerState !== 'function') return;
-            const state = audioPlayer.getPlayerState();
-            if (state == YT.PlayerState.PLAYING) {
-                audioPlayer.pauseVideo();
-            } else {
-                if(audioPlayer.isMuted()) {
-                    audioPlayer.unMute();
-                }
-                audioPlayer.playVideo();
-                document.getElementById('audioPanelContainer').classList.remove('muted-state');
-            }
-        }
-
-        function toggleMute() {
-            if (!audioPlayer || typeof audioPlayer.isMuted !== 'function') return;
-            const panel = document.getElementById('audioPanelContainer');
-            if (audioPlayer.isMuted()) {
-                audioPlayer.unMute();
-                audioPlayer.setVolume(100);
-                panel.classList.remove('muted-state');
-                panel.classList.add('playing');
-            } else {
-                audioPlayer.mute();
-                panel.classList.add('muted-state');
-                panel.classList.remove('playing');
-            }
-        }
-
-        function updateWidgetUI() {
-            const panel = document.getElementById('audioPanelContainer');
-            if (audioPlayer && typeof audioPlayer.isMuted === 'function') {
-                if (audioPlayer.isMuted()) {
-                    panel.classList.add('muted-state');
-                    panel.classList.remove('playing');
-                } else {
-                    panel.classList.remove('muted-state');
-                    panel.classList.add('playing');
-                }
-            }
-        }
-
-        // Activates player on user interaction so Windows instantly tracks the sound engine
-        function unlockAudioEngine() {
-            if (isFirstInteraction && audioPlayer && typeof audioPlayer.unMute === 'function') {
-                audioPlayer.unMute();
-                audioPlayer.setVolume(100);
-                audioPlayer.playVideo();
-                const panel = document.getElementById('audioPanelContainer');
-                panel.classList.remove('muted-state');
-                panel.classList.add('playing');
-                isFirstInteraction = false;
-            }
-        }
+        }, 4000);
 
         /* --- ACCORDION FAQ CONTROLLER --- */
         function toggleFaq(buttonElement) {
@@ -960,7 +832,7 @@
             setTimeout(() => { btn.textContent = 'Copy Link'; }, 2000);
         }
 
-        // --- MOUSE ANIMATION & INTERACTION TRIGGER ---
+        // --- MOUSE ANIMATION LOGIC ---
         const customDot = document.getElementById('customDot');
         function updateDotPosition(e) {
             customDot.style.left = e.clientX + 'px';
@@ -975,7 +847,6 @@
         document.addEventListener('mouseover', updateDotPosition);
         document.addEventListener('mouseleave', () => { customDot.style.opacity = '0'; });
 
-        // --- RIPPLE AND WINDOWS SOUND INTERCEPT ---
         window.addEventListener('click', (e) => {
             const ripple = document.createElement('div');
             ripple.className = 'click-ripple';
@@ -984,8 +855,11 @@
             document.body.appendChild(ripple);
             setTimeout(() => { ripple.remove(); }, 500);
 
-            // User click triggers unmuting, instantly registering into Windows Volume Mixer
-            unlockAudioEngine();
+            // Play clean background stream immediately upon interaction
+            if (!hasInteracted && audio) {
+                audio.play().catch(err => console.log("Audio autoplay prevented: ", err));
+                hasInteracted = true;
+            }
         });
 
         // --- WIFI STATUS DETECTION LOGIC ---
@@ -1004,6 +878,7 @@
 
         window.addEventListener('offline', checkNetworkStatus);
         window.addEventListener('online', checkNetworkStatus);
+
         document.addEventListener('DOMContentLoaded', () => {
             const loadingBar = document.getElementById('loadingBar');
             loadingBar.style.animation = 'none'; 
