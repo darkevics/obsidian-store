@@ -29,13 +29,9 @@
             width: 100%;
             /* --- PREVENT TEXT SELECTION ON DOUBLE CLICK --- */
             -webkit-user-select: none;
-            /* Safari */
             -moz-user-select: none;
-            /* Firefox */
             -ms-user-select: none;
-            /* IE10+/Edge */
             user-select: none;
-            /* Standard syntax */
         }
 
         /* Top Loading Progress Bar styling */
@@ -85,7 +81,7 @@
             pointer-events: none;
         }
 
-        /* Completely hides the background audio engine container safely without display none constraints */
+        /* Completely hides the background audio engine container safely */
         #audioEngineContainer {
             position: absolute;
             top: -9999px;
@@ -107,7 +103,7 @@
             pointer-events: none;
         }
 
-        /* --- CONTENT LAYER WRAPPER WITH TRUE TOP-LEFT SLIDE INTRO --- */
+        /* --- CONTENT LAYER WRAPPER --- */
         .page-wrapper {
             position: relative;
             z-index: 10;
@@ -156,7 +152,7 @@
             100% { width: 60px; height: 60px; opacity: 0; }
         }
 
-        /* --- NAVBAR BAR WITH CLEAN AUTOMATED SIDE-BY-SIDE DESIGN --- */
+        /* --- NAVBAR --- */
         .navbar {
             background-color: rgba(0, 0, 0, 0.8);
             backdrop-filter: blur(8px);
@@ -192,17 +188,28 @@
             font-weight: 800;
         }
 
-        /* --- AUDIO CONTROLLER UI PANEL --- */
+        /* --- AUDIO CONTROLLER GLASS PANEL --- */
         .audio-ui-panel {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 14px;
             background: rgba(20, 20, 20, 0.6);
             border: 1px solid #222222;
-            padding: 6px 14px;
+            padding: 6px 16px;
             border-radius: 30px;
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
+        }
+
+        .audio-track-info {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #aaaaaa;
+            letter-spacing: 0.5px;
+        }
+
+        .audio-track-info span {
+            color: #a855f7;
         }
 
         .audio-ui-btn {
@@ -210,7 +217,6 @@
             border: none;
             color: #ffffff;
             font-size: 1rem;
-            font-weight: 700;
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -230,16 +236,41 @@
             transform: scale(0.95);
         }
 
-        .audio-track-info {
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: #aaaaaa;
-            margin-right: 4px;
-            letter-spacing: 0.5px;
+        /* Animated Soundwaves Mute Toggle Icon Box */
+        .soundwave-icon {
+            display: flex;
+            align-items: flex-end;
+            gap: 2px;
+            width: 16px;
+            height: 14px;
         }
 
-        .audio-track-info span {
-            color: #a855f7;
+        .soundwave-bar {
+            width: 3px;
+            height: 100%;
+            background-color: #ffffff;
+            border-radius: 2px;
+            animation: bounce-wave 0.8s ease-in-out infinite alternate;
+            animation-play-state: paused;
+        }
+
+        .soundwave-bar:nth-child(2) { animation-duration: 0.5s; }
+        .soundwave-bar:nth-child(3) { animation-duration: 0.7s; }
+
+        .playing .soundwave-bar {
+            background-color: #a855f7;
+            animation-play-state: running;
+        }
+
+        .muted-state .soundwave-bar {
+            animation-play-state: paused !important;
+            height: 3px !important;
+            background-color: #555555;
+        }
+
+        @keyframes bounce-wave {
+            0% { height: 3px; }
+            100% { height: 14px; }
         }
 
         .container {
@@ -267,7 +298,7 @@
             filter: drop-shadow(0 0 8px rgba(168, 85, 247, 0.4));
         }
 
-        /* --- WIDGET STACKED CONTAINER --- */
+        /* --- WIDGET CONTAINER --- */
         .widgets-container {
             display: flex;
             flex-direction: column; 
@@ -277,7 +308,6 @@
             width: 100%;
         }
 
-        /* Server IP & Discord Widget Boxes */
         .ip-bar {
             background-color: rgba(17, 17, 17, 0.85);
             backdrop-filter: blur(6px);
@@ -353,7 +383,7 @@
             font-weight: 400;
         }
 
-        /* --- TWO-COLUMN WORKSPACE: RANKS & FAQ SIDE BY SIDE --- */
+        /* --- SHOP LAYOUT --- */
         .shop-layout-grid {
             display: grid;
             grid-template-columns: 1.1fr 0.9fr;
@@ -412,7 +442,6 @@
             font-weight: 400;
         }
 
-        /* --- BUY BUTTON STYLES --- */
         .buy-btn {
             background-color: #ff00ff;
             color: #ffffff;
@@ -443,7 +472,7 @@
             100% { transform: rotate(6deg); }
         }
 
-        /* --- ACCORDION FAQ SYSTEM (PURPLE OBSIDIAN SKIN) --- */
+        /* --- ACCORDION FAQ --- */
         .faq-wrapper {
             display: flex;
             flex-direction: column;
@@ -577,73 +606,29 @@
 
         /* --- DESKTOP SPECIFIC CURSOR CONFIG --- */
         @media (hover: hover) and (pointer: fine) {
-            body {
-                cursor: none;
-            }
-            a, button, .wifi-close-btn, .faq-trigger, .audio-ui-btn {
-                cursor: none !important;
-            }
+            body { cursor: none; }
+            a, button, .wifi-close-btn, .faq-trigger, .audio-ui-btn { cursor: none !important; }
         }
 
         /* --- MOBILE RESPONSIVE MEDIA QUERIES --- */
         @media (max-width: 992px) {
-            .shop-layout-grid {
-                grid-template-columns: 1fr;
-                gap: 60px;
-            }
-            .section-title {
-                margin-bottom: 25px;
-            }
+            .shop-layout-grid { grid-template-columns: 1fr; gap: 60px; }
+            .section-title { margin-bottom: 25px; }
         }
 
         @media (max-width: 768px) {
-            .cursor-dot {
-                display: none !important;
-            }
-            body {
-                padding-bottom: 60px;
-            }
-            .navbar {
-                padding: 15px 20px;
-            }
-            .header-title {
-                font-size: 2.3rem;
-                gap: 12px;
-                margin: 40px 0 20px 0;
-            }
-            .header-title img {
-                width: 45px;
-                height: 45px;
-            }
-            .ip-bar {
-                padding: 10px 14px;
-                gap: 8px;
-                font-size: 0.75rem;
-            }
-            .ip-bar .copy-btn {
-                padding: 5px 10px;
-                font-size: 0.75rem;
-            }
-            .about-title, .section-title {
-                font-size: 2.2rem;
-            }
-            .about-box {
-                padding: 25px 20px;
-                margin-bottom: 50px;
-            }
-            .about-box p {
-                font-size: 0.95rem;
-            }
-            .buy-btn {
-                margin-left: 15px;
-            }
-            .wifi-warning-popup {
-                bottom: 15px;
-                right: 15px;
-                left: 15px;
-                max-width: calc(100% - 30px);
-                padding: 15px;
-            }
+            .cursor-dot { display: none !important; }
+            body { padding-bottom: 60px; }
+            .navbar { padding: 15px 20px; }
+            .header-title { font-size: 2.3rem; gap: 12px; margin: 40px 0 20px 0; }
+            .header-title img { width: 45px; height: 45px; }
+            .ip-bar { padding: 10px 14px; gap: 8px; font-size: 0.75rem; }
+            .ip-bar .copy-btn { padding: 5px 10px; font-size: 0.75rem; }
+            .about-title, .section-title { font-size: 2.2rem; }
+            .about-box { padding: 25px 20px; margin-bottom: 50px; }
+            .about-box p { font-size: 0.95rem; }
+            .buy-btn { margin-left: 15px; }
+            .wifi-warning-popup { bottom: 15px; right: 15px; left: 15px; max-width: calc(100% - 30px); padding: 15px; }
         }
     </style>
 </head>
@@ -677,11 +662,17 @@
                 <span class="divider">|</span>
                 <a href="#shop-section">SHOP</a>
             </div>
-            
-            <div class="audio-ui-panel">
+
+            <div class="audio-ui-panel text-animation-box" id="audioPanelContainer">
                 <div class="audio-track-info">♪ Aria Math - <span>C418</span></div>
                 <button class="audio-ui-btn" id="playPauseBtn" onclick="togglePlayPause()">⏸</button>
-                <button class="audio-ui-btn" id="muteBtn" onclick="toggleMute()">🔊</button>
+                <button class="audio-ui-btn" id="muteBtn" onclick="toggleMute()" title="Toggle Sound">
+                    <div class="soundwave-icon" id="soundwaveContainer">
+                        <div class="soundwave-bar"></div>
+                        <div class="soundwave-bar"></div>
+                        <div class="soundwave-bar"></div>
+                    </div>
+                </button>
             </div>
         </nav>
 
@@ -694,7 +685,6 @@
             </h1>
 
             <div class="widgets-container">
-             
                 <div class="ip-bar">
                     <img src="https://cdn.freebiesupply.com/logos/large/2x/minecraft-1-logo-png-transparent.png" alt="Minecraft Logo" class="widget-logo">
                     <span class="label-text">MINECRAFT</span>
@@ -823,9 +813,7 @@
                 </div>
 
             </div>
-
         </div>
-
     </div>
 
     <script src="https://www.youtube-nocookie.com/iframe_api"></script>
@@ -864,42 +852,56 @@
 
         function onAudioEngineReady(event) {
             event.target.playVideo();
+            updateWidgetUI();
         }
 
         function onAudioEngineStateChange(event) {
             const playPauseBtn = document.getElementById('playPauseBtn');
+            const panel = document.getElementById('audioPanelContainer');
+            
             if (event.data == YT.PlayerState.PLAYING) {
                 playPauseBtn.textContent = '⏸';
-            } else if (event.data == YT.PlayerState.PAUSED) {
+                panel.classList.add('playing');
+            } else {
                 playPauseBtn.textContent = '▶';
-            }
-            if (event.data == YT.PlayerState.ENDED) {
-                audioPlayer.playVideo();
+                panel.classList.remove('playing');
             }
         }
 
-        // --- PLAYBACK CONTROLS ---
         function togglePlayPause() {
             if (!audioPlayer || typeof audioPlayer.getPlayerState !== 'function') return;
             const state = audioPlayer.getPlayerState();
             if (state == YT.PlayerState.PLAYING) {
                 audioPlayer.pauseVideo();
             } else {
-                audioPlayer.unMute();
+                if(audioPlayer.isMuted()) {
+                    audioPlayer.unMute();
+                }
                 audioPlayer.playVideo();
-                document.getElementById('muteBtn').textContent = '🔊';
+                document.getElementById('audioPanelContainer').classList.remove('muted-state');
             }
         }
 
         function toggleMute() {
             if (!audioPlayer || typeof audioPlayer.isMuted !== 'function') return;
-            const muteBtn = document.getElementById('muteBtn');
+            const panel = document.getElementById('audioPanelContainer');
             if (audioPlayer.isMuted()) {
                 audioPlayer.unMute();
-                muteBtn.textContent = '🔊';
+                panel.classList.remove('muted-state');
             } else {
                 audioPlayer.mute();
-                muteBtn.textContent = '🔇';
+                panel.classList.add('muted-state');
+            }
+        }
+
+        function updateWidgetUI() {
+            const panel = document.getElementById('audioPanelContainer');
+            if (audioPlayer && typeof audioPlayer.isMuted === 'function') {
+                if (audioPlayer.isMuted()) {
+                    panel.classList.add('muted-state');
+                } else {
+                    panel.classList.remove('muted-state');
+                }
             }
         }
 
@@ -950,13 +952,10 @@
         window.addEventListener('mousemove', updateDotPosition);
         document.addEventListener('mouseenter', updateDotPosition);
         document.addEventListener('mouseover', updateDotPosition);
+        document.addEventListener('mouseleave', () => { customDot.style.opacity = '0'; });
 
-        document.addEventListener('mouseleave', () => {
-            customDot.style.opacity = '0';
-        });
-
+        // --- UNMUTE ON FIRST USER CLICK ---
         window.addEventListener('click', (e) => {
-            // Ripple construction
             const ripple = document.createElement('div');
             ripple.className = 'click-ripple';
             ripple.style.left = e.clientX + 'px';
@@ -964,10 +963,10 @@
             document.body.appendChild(ripple);
             setTimeout(() => { ripple.remove(); }, 500);
 
-            // Handle browser restriction instantly on first interaction
             if (isFirstInteraction && audioPlayer && typeof audioPlayer.unMute === 'function') {
                 audioPlayer.unMute();
                 audioPlayer.playVideo();
+                document.getElementById('audioPanelContainer').classList.remove('muted-state');
                 isFirstInteraction = false;
             }
         });
@@ -993,7 +992,6 @@
             loadingBar.style.animation = 'none'; 
             loadingBar.style.width = '100%'; 
             setTimeout(() => { loadingBar.style.opacity = '0'; }, 400);
-
             checkNetworkStatus();
         });
     </script>
