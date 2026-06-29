@@ -192,53 +192,55 @@
             font-weight: 800;
         }
 
-        /* --- AUDIO STATUS WIDGET SYSTEM --- */
-        .audio-status-container {
-            font-family: 'Poppins', sans-serif;
-            font-size: 0.95rem;
+        /* --- AUDIO CONTROLLER UI PANEL --- */
+        .audio-ui-panel {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(20, 20, 20, 0.6);
+            border: 1px solid #222222;
+            padding: 6px 14px;
+            border-radius: 30px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .audio-ui-btn {
+            background: transparent;
+            border: none;
+            color: #ffffff;
+            font-size: 1rem;
             font-weight: 700;
-            color: #888888;
-            position: relative;
-            min-width: 160px;
-            text-align: right;
-            height: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            transition: background 0.2s, color 0.2s, transform 0.1s;
         }
 
-        .audio-status-text {
-            position: absolute;
-            right: 0;
-            top: 0;
-            white-space: nowrap;
-            opacity: 0;
-            transition: opacity 0.6s ease;
-        }
-
-        /* Text State Specific Visual Styles */
-        .now-playing-display {
-            color: #888888;
-            font-weight: 600;
-            letter-spacing: 1px;
-        }
-
-        .track-display {
+        .audio-ui-btn:hover {
+            background: rgba(168, 85, 247, 0.2);
             color: #a855f7;
-            text-shadow: 0 0 10px rgba(168, 85, 247, 0.3);
-            font-weight: 800;
+        }
+
+        .audio-ui-btn:active {
+            transform: scale(0.95);
+        }
+
+        .audio-track-info {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #aaaaaa;
+            margin-right: 4px;
             letter-spacing: 0.5px;
         }
 
-        .fade-in {
-            opacity: 1 !important;
+        .audio-track-info span {
+            color: #a855f7;
         }
-
-        .fade-out {
-            opacity: 0 !important;
-        }
-
-        .loading-dots span{opacity:0;animation:dotBlink 1.2s infinite;}
-        .loading-dots span:nth-child(2){animation-delay:.2s;}
-        .loading-dots span:nth-child(3){animation-delay:.4s;}
-        @keyframes dotBlink{0%,20%{opacity:0;}50%{opacity:1;}100%{opacity:0;}}
 
         .container {
             max-width: 1200px;
@@ -578,7 +580,7 @@
             body {
                 cursor: none;
             }
-            a, button, .wifi-close-btn, .faq-trigger {
+            a, button, .wifi-close-btn, .faq-trigger, .audio-ui-btn {
                 cursor: none !important;
             }
         }
@@ -674,6 +676,12 @@
                 <a href="#">TOP</a>
                 <span class="divider">|</span>
                 <a href="#shop-section">SHOP</a>
+            </div>
+            
+            <div class="audio-ui-panel">
+                <div class="audio-track-info">♪ Aria Math - <span>C418</span></div>
+                <button class="audio-ui-btn" id="playPauseBtn" onclick="togglePlayPause()">⏸</button>
+                <button class="audio-ui-btn" id="muteBtn" onclick="toggleMute()">🔊</button>
             </div>
         </nav>
 
@@ -824,7 +832,7 @@
 
     <script>
         let audioPlayer;
-        // Official YouTube ID for C418 - Aria Math (Minecraft Volume Alpha)
+        let isFirstInteraction = true;
         const SONG_ID = 'atgjKEgSqSU'; 
 
         function onYouTubeIframeAPIReady() {
@@ -856,15 +864,42 @@
 
         function onAudioEngineReady(event) {
             event.target.playVideo();
-            event.target.unMute();
         }
 
         function onAudioEngineStateChange(event) {
+            const playPauseBtn = document.getElementById('playPauseBtn');
             if (event.data == YT.PlayerState.PLAYING) {
-                event.target.unMute();
+                playPauseBtn.textContent = '⏸';
+            } else if (event.data == YT.PlayerState.PAUSED) {
+                playPauseBtn.textContent = '▶';
             }
             if (event.data == YT.PlayerState.ENDED) {
                 audioPlayer.playVideo();
+            }
+        }
+
+        // --- PLAYBACK CONTROLS ---
+        function togglePlayPause() {
+            if (!audioPlayer || typeof audioPlayer.getPlayerState !== 'function') return;
+            const state = audioPlayer.getPlayerState();
+            if (state == YT.PlayerState.PLAYING) {
+                audioPlayer.pauseVideo();
+            } else {
+                audioPlayer.unMute();
+                audioPlayer.playVideo();
+                document.getElementById('muteBtn').textContent = '🔊';
+            }
+        }
+
+        function toggleMute() {
+            if (!audioPlayer || typeof audioPlayer.isMuted !== 'function') return;
+            const muteBtn = document.getElementById('muteBtn');
+            if (audioPlayer.isMuted()) {
+                audioPlayer.unMute();
+                muteBtn.textContent = '🔊';
+            } else {
+                audioPlayer.mute();
+                muteBtn.textContent = '🔇';
             }
         }
 
@@ -921,18 +956,19 @@
         });
 
         window.addEventListener('click', (e) => {
+            // Ripple construction
             const ripple = document.createElement('div');
             ripple.className = 'click-ripple';
             ripple.style.left = e.clientX + 'px';
             ripple.style.top = e.clientY + 'px';
-            
             document.body.appendChild(ripple);
-            
             setTimeout(() => { ripple.remove(); }, 500);
 
-            // Unmutes audio automatically when the user clicks the screen
-            if (audioPlayer && typeof audioPlayer.unMute === 'function') {
+            // Handle browser restriction instantly on first interaction
+            if (isFirstInteraction && audioPlayer && typeof audioPlayer.unMute === 'function') {
                 audioPlayer.unMute();
+                audioPlayer.playVideo();
+                isFirstInteraction = false;
             }
         });
 
