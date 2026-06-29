@@ -384,12 +384,14 @@
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
         .rank-card h3 {
-            color: #a855f7;
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             margin-bottom: 12px;
-            font-weight: 800;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
         .rank-card p {
             color: #aaaaaa;
@@ -399,7 +401,6 @@
         }
 
         .buy-btn {
-            background-color: #ff00ff;
             color: #ffffff;
             border: none;
             border-radius: 12px;
@@ -412,14 +413,11 @@
             width: fit-content;
             text-decoration: none; 
             display: inline-block;
-            box-shadow: 0 0 15px rgba(255, 0, 255, 0.4);
             transform-origin: top center;
-            transition: background-color 0.2s, box-shadow 0.2s;
+            transition: background-color 0.2s, box-shadow 0.2s, background 0.2s;
             z-index: 5;
         }
         .buy-btn:hover {
-            background-color: #d400d4;
-            box-shadow: 0 0 25px rgba(255, 0, 255, 0.8);
             animation: swingSideToSide 0.6s ease-in-out infinite alternate;
         }
 
@@ -427,6 +425,73 @@
             0% { transform: rotate(-6deg); }
             100% { transform: rotate(6deg); }
         }
+
+        /* ==========================================================================
+           RANK SYSTEM STYLING - THEMED COLOR VARIATIONS
+           ========================================================================== */
+
+        /* 1. Starter (Deep Sky Blue Aesthetic) */
+        .rank-starter .rank-card { border-color: rgba(14, 165, 233, 0.2); }
+        .rank-starter .rank-card:hover { border-color: #0ea5e9; box-shadow: 0 0 15px rgba(14, 165, 233, 0.15); }
+        .rank-starter h3 { color: #0ea5e9; text-shadow: 0 0 10px rgba(14, 165, 233, 0.3); }
+        .rank-starter .buy-btn { background-color: #0ea5e9; box-shadow: 0 0 15px rgba(14, 165, 233, 0.4); }
+        .rank-starter .buy-btn:hover { background-color: #0284c7; box-shadow: 0 0 25px #0ea5e9; }
+
+        /* 2. Bronze (Metallic Warm Bronze) */
+        .rank-bronze .rank-card { border-color: rgba(205, 127, 50, 0.2); }
+        .rank-bronze .rank-card:hover { border-color: #cd7f32; box-shadow: 0 0 15px rgba(205, 127, 50, 0.15); }
+        .rank-bronze h3 { color: #cd7f32; text-shadow: 0 0 10px rgba(205, 127, 50, 0.3); }
+        .rank-bronze .buy-btn { background-color: #cd7f32; box-shadow: 0 0 15px rgba(205, 127, 50, 0.4); }
+        .rank-bronze .buy-btn:hover { background-color: #b86f28; box-shadow: 0 0 25px #cd7f32; }
+
+        /* 3. Silver (Bright Radiant Silver) */
+        .rank-silver .rank-card { border-color: rgba(226, 232, 240, 0.2); }
+        .rank-silver .rank-card:hover { border-color: #e2e8f0; box-shadow: 0 0 15px rgba(226, 232, 240, 0.15); }
+        .rank-silver h3 { color: #e2e8f0; text-shadow: 0 0 10px rgba(226, 232, 240, 0.3); }
+        .rank-silver .buy-btn { background-color: #e2e8f0; color: #0f172a; box-shadow: 0 0 15px rgba(226, 232, 240, 0.4); }
+        .rank-silver .buy-btn:hover { background-color: #cbd5e1; box-shadow: 0 0 25px #e2e8f0; }
+
+        /* 4. Gold (Classic Luxurious Gold) */
+        .rank-gold .rank-card { border-color: rgba(234, 179, 8, 0.2); }
+        .rank-gold .rank-card:hover { border-color: #eab308; box-shadow: 0 0 15px rgba(234, 179, 8, 0.15); }
+        .rank-gold h3 { color: #eab308; text-shadow: 0 0 10px rgba(234, 179, 8, 0.3); }
+        .rank-gold .buy-btn { background-color: #eab308; color: #0f172a; box-shadow: 0 0 15px rgba(234, 179, 8, 0.4); }
+        .rank-gold .buy-btn:hover { background-color: #ca8a04; box-shadow: 0 0 25px #eab308; }
+
+        /* 5. Platinum (Futuristic Teal Platinum) */
+        .rank-platinum .rank-card { border-color: rgba(45, 212, 191, 0.2); }
+        .rank-platinum .rank-card:hover { border-color: #2dd4bf; box-shadow: 0 0 15px rgba(45, 212, 191, 0.15); }
+        .rank-platinum h3 { color: #2dd4bf; text-shadow: 0 0 10px rgba(45, 212, 191, 0.3); }
+        .rank-platinum .buy-btn { background-color: #2dd4bf; color: #0f172a; box-shadow: 0 0 15px rgba(45, 212, 191, 0.4); }
+        .rank-platinum .buy-btn:hover { background-color: #14b8a6; box-shadow: 0 0 25px #2dd4bf; }
+
+        /* 6. Diamond (Ice Diamond Cyan) */
+        .rank-diamond .rank-card { border-color: rgba(6, 182, 212, 0.2); }
+        .rank-diamond .rank-card:hover { border-color: #06b6d4; box-shadow: 0 0 15px rgba(6, 182, 212, 0.15); }
+        .rank-diamond h3 { color: #06b6d4; text-shadow: 0 0 10px rgba(6, 182, 212, 0.3); }
+        .rank-diamond .buy-btn { background-color: #06b6d4; box-shadow: 0 0 15px rgba(6, 182, 212, 0.4); }
+        .rank-diamond .buy-btn:hover { background-color: #0891b2; box-shadow: 0 0 25px #06b6d4; }
+
+        /* 7. Emerald (Vibrant Crystal Emerald) */
+        .rank-emerald .rank-card { border-color: rgba(16, 185, 129, 0.2); }
+        .rank-emerald .rank-card:hover { border-color: #10b981; box-shadow: 0 0 15px rgba(16, 185, 129, 0.15); }
+        .rank-emerald h3 { color: #10b981; text-shadow: 0 0 10px rgba(16, 185, 129, 0.3); }
+        .rank-emerald .buy-btn { background-color: #10b981; box-shadow: 0 0 15px rgba(16, 185, 129, 0.4); }
+        .rank-emerald .buy-btn:hover { background-color: #059669; box-shadow: 0 0 25px #10b981; }
+
+        /* 8. Ruby (Deep Velvet Ruby Red) */
+        .rank-ruby .rank-card { border-color: rgba(239, 68, 68, 0.2); }
+        .rank-ruby .rank-card:hover { border-color: #ef4444; box-shadow: 0 0 15px rgba(239, 68, 68, 0.15); }
+        .rank-ruby h3 { color: #ef4444; text-shadow: 0 0 10px rgba(239, 68, 68, 0.3); }
+        .rank-ruby .buy-btn { background-color: #ef4444; box-shadow: 0 0 15px rgba(239, 68, 68, 0.4); }
+        .rank-ruby .buy-btn:hover { background-color: #dc2626; box-shadow: 0 0 25px #ef4444; }
+
+        /* 9. Obsidian (Deep Matte Black & Cosmic Purple Accent Flare) */
+        .rank-obsidian .rank-card { background-color: rgba(10, 5, 18, 0.9); border-color: rgba(168, 85, 247, 0.3); }
+        .rank-obsidian .rank-card:hover { border-color: #a855f7; box-shadow: 0 0 22px rgba(168, 85, 247, 0.4); }
+        .rank-obsidian h3 { color: #ffffff; text-shadow: 0 0 8px rgba(255, 255, 255, 0.4), 0 0 15px #a855f7; }
+        .rank-obsidian .buy-btn { background: linear-gradient(135deg, #12061c 0%, #7c3aed 100%); border: 1px solid rgba(168, 85, 247, 0.5); box-shadow: 0 0 15px rgba(124, 58, 237, 0.6); }
+        .rank-obsidian .buy-btn:hover { background: linear-gradient(135deg, #1c092c 0%, #a855f7 100%); box-shadow: 0 0 28px #a855f7; }
 
         /* --- ACCORDION FAQ (Centered / Boxed Layout) --- */
         .faq-wrapper {
@@ -745,7 +810,7 @@
                 <h2 class="section-title">RANKS</h2>
                 <div class="ranks-grid">
                     
-                    <div class="card-container">
+                    <div class="card-container rank-starter">
                         <div class="rank-card">
                             <h3>Starter</h3>
                             <p>• </p>
@@ -753,7 +818,7 @@
                         <a href="https://discord.gg/XjfQNeDTzN" target="_blank" class="buy-btn">buy</a>
                     </div>
 
-                    <div class="card-container">
+                    <div class="card-container rank-bronze">
                         <div class="rank-card">
                             <h3>Bronze</h3>
                             <p>• </p>
@@ -761,7 +826,7 @@
                         <a href="https://discord.gg/XjfQNeDTzN" target="_blank" class="buy-btn">buy</a>
                     </div>
 
-                    <div class="card-container">
+                    <div class="card-container rank-silver">
                         <div class="rank-card">
                             <h3>Silver</h3>
                             <p>• </p>
@@ -769,7 +834,7 @@
                         <a href="https://discord.gg/XjfQNeDTzN" target="_blank" class="buy-btn">buy</a>
                     </div>
 
-                    <div class="card-container">
+                    <div class="card-container rank-gold">
                         <div class="rank-card">
                             <h3>Gold</h3>
                             <p>• </p>
@@ -777,7 +842,7 @@
                         <a href="https://discord.gg/XjfQNeDTzN" target="_blank" class="buy-btn">buy</a>
                     </div>
 
-                    <div class="card-container">
+                    <div class="card-container rank-platinum">
                         <div class="rank-card">
                             <h3>Platinum</h3>
                             <p>• </p>
@@ -785,7 +850,7 @@
                         <a href="https://discord.gg/XjfQNeDTzN" target="_blank" class="buy-btn">buy</a>
                     </div>
 
-                    <div class="card-container">
+                    <div class="card-container rank-diamond">
                         <div class="rank-card">
                             <h3>Diamond</h3>
                             <p>• </p>
@@ -793,7 +858,7 @@
                         <a href="https://discord.gg/XjfQNeDTzN" target="_blank" class="buy-btn">buy</a>
                     </div>
 
-                    <div class="card-container">
+                    <div class="card-container rank-emerald">
                         <div class="rank-card">
                             <h3>Emerald</h3>
                             <p>• </p>
@@ -801,7 +866,7 @@
                         <a href="https://discord.gg/XjfQNeDTzN" target="_blank" class="buy-btn">buy</a>
                     </div>
 
-                    <div class="card-container">
+                    <div class="card-container rank-ruby">
                         <div class="rank-card">
                             <h3>Ruby</h3>
                             <p>• </p>
@@ -809,7 +874,7 @@
                         <a href="https://discord.gg/XjfQNeDTzN" target="_blank" class="buy-btn">buy</a>
                     </div>
 
-                    <div class="card-container">
+                    <div class="card-container rank-obsidian">
                         <div class="rank-card">
                             <h3>Obsidian</h3>
                             <p>• </p>
