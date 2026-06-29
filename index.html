@@ -791,7 +791,7 @@
                     loop: 1,
                     playlist: AUDIO_TRACK_ID,
                     origin: window.location.origin,
-                    mute: 1 // Must start muted to bypass initial browser blocking restrictions
+                    mute: 0 // Must start muted to bypass initial browser blocking restrictions
                 },
                 events: {
                     'onReady': (e) => { e.target.playVideo(); }
