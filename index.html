@@ -342,14 +342,10 @@
             font-weight: 400;
         }
 
-        /* --- SHOP LAYOUT --- */
-        .shop-layout-grid {
-            display: grid;
-            grid-template-columns: 1.1fr 0.9fr;
-            gap: 50px;
+        /* --- SHOP FULL LAYOUT --- */
+        .section-wrapper {
+            margin-bottom: 80px;
             text-align: left;
-            align-items: start;
-            margin-top: 40px;
             scroll-margin-top: 100px;
         }
 
@@ -360,10 +356,11 @@
             margin-bottom: 40px;
         }
 
+        /* Ranks Grid: 3 columns horizontally */
         .ranks-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 45px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 50px 30px;
             width: 100%;
         }
 
@@ -383,7 +380,7 @@
             width: 100%;
             padding: 35px 30px;
             text-align: left;
-            min-height: 150px;
+            min-height: 160px;
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
@@ -431,12 +428,14 @@
             100% { transform: rotate(6deg); }
         }
 
-        /* --- ACCORDION FAQ --- */
+        /* --- ACCORDION FAQ (Centered / Boxed Layout) --- */
         .faq-wrapper {
             display: flex;
             flex-direction: column;
             gap: 15px;
             width: 100%;
+            max-width: 850px;
+            margin: 0 auto;
         }
 
         .faq-item {
@@ -571,8 +570,7 @@
 
         /* --- MOBILE RESPONSIVE MEDIA QUERIES --- */
         @media (max-width: 992px) {
-            .shop-layout-grid { grid-template-columns: 1fr; gap: 60px; }
-            .section-title { margin-bottom: 25px; }
+            .ranks-grid { grid-template-columns: repeat(2, 1fr); gap: 40px 20px; }
         }
 
         @media (max-width: 768px) {
@@ -583,9 +581,10 @@
             .header-title img { width: 45px; height: 45px; }
             .ip-bar { padding: 10px 14px; gap: 8px; font-size: 0.75rem; }
             .ip-bar .copy-btn { padding: 5px 10px; font-size: 0.75rem; }
-            .about-title, .section-title { font-size: 2.2rem; }
+            .about-title, .section-title { font-size: 2.2rem; text-align: center; }
             .about-box { padding: 25px 20px; margin-bottom: 50px; }
             .about-box p { font-size: 0.95rem; }
+            .ranks-grid { grid-template-columns: 1fr; gap: 40px; }
             .buy-btn { margin-left: 15px; }
             .wifi-warning-popup { bottom: 15px; right: 15px; left: 15px; max-width: calc(100% - 30px); padding: 15px; }
         }
@@ -619,6 +618,8 @@
                 <a href="#">TOP</a>
                 <span class="divider">|</span>
                 <a href="#shop-section">SHOP</a>
+                <span class="divider">|</span>
+                <a href="#faq-section">FAQ</a>
             </div>
             
             <div class="audio-status-container">
@@ -661,167 +662,164 @@
                 <p>Write your description here! As you keep adding more and more lines of text to this paragraph, this box will smoothly expand downwards automatically to fit everything perfectly without breaking your design.</p>
             </div>
 
-            <div id="shop-section" class="shop-layout-grid">
-                
-                <div>
-                    <h2 class="section-title">RANKS</h2>
-                    <div class="ranks-grid">
-                        
-                        <div class="card-container">
-                            <div class="rank-card">
-                                <h3>Starter</h3>
-                                <p>• </p>
-                            </div>
-                            <a href="https://discord.gg/XjfQNeDTzN" target="_blank" class="buy-btn">buy</a>
+            <div id="shop-section" class="section-wrapper">
+                <h2 class="section-title">RANKS</h2>
+                <div class="ranks-grid">
+                    
+                    <div class="card-container">
+                        <div class="rank-card">
+                            <h3>Starter</h3>
+                            <p>• </p>
                         </div>
-
-                        <div class="card-container">
-                            <div class="rank-card">
-                                <h3>Bronze</h3>
-                                <p>• </p>
-                            </div>
-                            <a href="https://discord.gg/XjfQNeDTzN" target="_blank" class="buy-btn">buy</a>
-                        </div>
-
-                        <div class="card-container">
-                            <div class="rank-card">
-                                <h3>Silver</h3>
-                                <p>• </p>
-                            </div>
-                            <a href="https://discord.gg/XjfQNeDTzN" target="_blank" class="buy-btn">buy</a>
-                        </div>
-
-                        <div class="card-container">
-                            <div class="rank-card">
-                                <h3>Gold</h3>
-                                <p>• </p>
-                            </div>
-                            <a href="https://discord.gg/XjfQNeDTzN" target="_blank" class="buy-btn">buy</a>
-                        </div>
-
-                        <div class="card-container">
-                            <div class="rank-card">
-                                <h3>Platinum</h3>
-                                <p>• </p>
-                            </div>
-                            <a href="https://discord.gg/XjfQNeDTzN" target="_blank" class="buy-btn">buy</a>
-                        </div>
-
-                        <div class="card-container">
-                            <div class="rank-card">
-                                <h3>Diamond</h3>
-                                <p>• </p>
-                            </div>
-                            <a href="https://discord.gg/XjfQNeDTzN" target="_blank" class="buy-btn">buy</a>
-                        </div>
-
-                        <div class="card-container">
-                            <div class="rank-card">
-                                <h3>Emerald</h3>
-                                <p>• </p>
-                            </div>
-                            <a href="https://discord.gg/XjfQNeDTzN" target="_blank" class="buy-btn">buy</a>
-                        </div>
-
-                        <div class="card-container">
-                            <div class="rank-card">
-                                <h3>Ruby</h3>
-                                <p>• </p>
-                            </div>
-                            <a href="https://discord.gg/XjfQNeDTzN" target="_blank" class="buy-btn">buy</a>
-                        </div>
-
-                        <div class="card-container">
-                            <div class="rank-card">
-                                <h3>Obsidian</h3>
-                                <p>• </p>
-                            </div>
-                            <a href="https://discord.gg/XjfQNeDTzN" target="_blank" class="buy-btn">buy</a>
-                        </div>
-
+                        <a href="https://discord.gg/XjfQNeDTzN" target="_blank" class="buy-btn">buy</a>
                     </div>
-                </div>
 
-                <div>
-                    <h2 class="section-title">FAQ</h2>
-                    <div class="faq-wrapper">
-                        
-                        <div class="faq-item">
-                            <button class="faq-trigger" onclick="toggleFaq(this)">
-                                <span>How fast do I get my purchase?</span>
-                                <span class="faq-icon">+</span>
-                            </button>
-                            <div class="faq-content-container">
-                                <div class="faq-inner-body">
-                                    People who buy these keys and ranks, usually get in the span of 10 minutes, if it takes longer please make a General Support ticket in the discord.
-                                </div>
-                            </div>
+                    <div class="card-container">
+                        <div class="rank-card">
+                            <h3>Bronze</h3>
+                            <p>• </p>
                         </div>
-
-                        <div class="faq-item">
-                            <button class="faq-trigger" onclick="toggleFaq(this)">
-                                <span>What payment methods are supported?</span>
-                                <span class="faq-icon">+</span>
-                            </button>
-                            <div class="faq-content-container">
-                                <div class="faq-inner-body">
-                                    We support as of the moment only PayPal methods, and Gift Cards. To make a purchase, you will have to create a Purchase Ticket in the discord.
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="faq-item">
-                            <button class="faq-trigger" onclick="toggleFaq(this)">
-                                <span>Can I upgrade my rank later?</span>
-                                <span class="faq-icon">+</span>
-                            </button>
-                            <div class="faq-content-container">
-                                <div class="faq-inner-body">
-                                    Yes! Ranks can be definetly be upgraded! If you paid for one before you can feel free to upgrade, and if you are willing to cancel all payements, we will remove the rank for you!
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="faq-item">
-                            <button class="faq-trigger" onclick="toggleFaq(this)">
-                                <span>Where do I open a support ticket?</span>
-                                <span class="faq-icon">+</span>
-                            </button>
-                            <div class="faq-content-container">
-                                <div class="faq-inner-body">
-                                    If you run into any transaction errors, or if you need help, be sure to open a ticket in the Discord server!
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="faq-item">
-                            <button class="faq-trigger" onclick="toggleFaq(this)">
-                                <span>Do ranks reset on map wipes?</span>
-                                <span class="faq-icon">+</span>
-                            </button>
-                            <div class="faq-content-container">
-                                <div class="faq-inner-body">
-                                    No, all purchased ranks will not reset on map/season wipes, if you have paid for it, you will keep it untill the subscription gets canceled by you.
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="faq-item">
-                            <button class="faq-trigger" onclick="toggleFaq(this)">
-                                <span>Can I get a refund?</span>
-                                <span class="faq-icon">+</span>
-                            </button>
-                            <div class="faq-content-container">
-                                <div class="faq-inner-body">
-                                    We do not give refunds back, since all of this is digital money and if you've purchased keys, those will most likely wont be refunded since that is not possible, same goes for the ranks.
-                                </div>
-                            </div>
-                        </div>
-
+                        <a href="https://discord.gg/XjfQNeDTzN" target="_blank" class="buy-btn">buy</a>
                     </div>
-                </div>
 
+                    <div class="card-container">
+                        <div class="rank-card">
+                            <h3>Silver</h3>
+                            <p>• </p>
+                        </div>
+                        <a href="https://discord.gg/XjfQNeDTzN" target="_blank" class="buy-btn">buy</a>
+                    </div>
+
+                    <div class="card-container">
+                        <div class="rank-card">
+                            <h3>Gold</h3>
+                            <p>• </p>
+                        </div>
+                        <a href="https://discord.gg/XjfQNeDTzN" target="_blank" class="buy-btn">buy</a>
+                    </div>
+
+                    <div class="card-container">
+                        <div class="rank-card">
+                            <h3>Platinum</h3>
+                            <p>• </p>
+                        </div>
+                        <a href="https://discord.gg/XjfQNeDTzN" target="_blank" class="buy-btn">buy</a>
+                    </div>
+
+                    <div class="card-container">
+                        <div class="rank-card">
+                            <h3>Diamond</h3>
+                            <p>• </p>
+                        </div>
+                        <a href="https://discord.gg/XjfQNeDTzN" target="_blank" class="buy-btn">buy</a>
+                    </div>
+
+                    <div class="card-container">
+                        <div class="rank-card">
+                            <h3>Emerald</h3>
+                            <p>• </p>
+                        </div>
+                        <a href="https://discord.gg/XjfQNeDTzN" target="_blank" class="buy-btn">buy</a>
+                    </div>
+
+                    <div class="card-container">
+                        <div class="rank-card">
+                            <h3>Ruby</h3>
+                            <p>• </p>
+                        </div>
+                        <a href="https://discord.gg/XjfQNeDTzN" target="_blank" class="buy-btn">buy</a>
+                    </div>
+
+                    <div class="card-container">
+                        <div class="rank-card">
+                            <h3>Obsidian</h3>
+                            <p>• </p>
+                        </div>
+                        <a href="https://discord.gg/XjfQNeDTzN" target="_blank" class="buy-btn">buy</a>
+                    </div>
+
+                </div>
             </div>
+
+            <div id="faq-section" class="section-wrapper">
+                <h2 class="section-title" style="text-align: center;">FAQ</h2>
+                <div class="faq-wrapper">
+                    
+                    <div class="faq-item">
+                        <button class="faq-trigger" onclick="toggleFaq(this)">
+                            <span>How fast do I get my purchase?</span>
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-content-container">
+                            <div class="faq-inner-body">
+                                People who buy these keys and ranks, usually get in the span of 10 minutes, if it takes longer please make a General Support ticket in the discord.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-trigger" onclick="toggleFaq(this)">
+                            <span>What payment methods are supported?</span>
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-content-container">
+                            <div class="faq-inner-body">
+                                We support as of the moment only PayPal methods, and Gift Cards. To make a purchase, you will have to create a Purchase Ticket in the discord.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-trigger" onclick="toggleFaq(this)">
+                            <span>Can I upgrade my rank later?</span>
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-content-container">
+                            <div class="faq-inner-body">
+                                Yes! Ranks can be definetly be upgraded! If you paid for one before you can feel free to upgrade, and if you are willing to cancel all payements, we will remove the rank for you!
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-trigger" onclick="toggleFaq(this)">
+                            <span>Where do I open a support ticket?</span>
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-content-container">
+                            <div class="faq-inner-body">
+                                If you run into any transaction errors, or if you need help, be sure to open a ticket in the Discord server!
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-trigger" onclick="toggleFaq(this)">
+                            <span>Do ranks reset on map wipes?</span>
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-content-container">
+                            <div class="faq-inner-body">
+                                No, all purchased ranks will not reset on map/season wipes, if you have paid for it, you will keep it untill the subscription gets canceled by you.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-trigger" onclick="toggleFaq(this)">
+                            <span>Can I get a refund?</span>
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-content-container">
+                            <div class="faq-inner-body">
+                                We do not give refunds back, since all of this is digital money and if you've purchased keys, those will most likely wont be refunded since that is not possible, same goes for the ranks.
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
         </div>
     </div>
 
