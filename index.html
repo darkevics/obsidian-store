@@ -152,7 +152,7 @@
             100% { width: 60px; height: 60px; opacity: 0; }
         }
 
-        /* --- NAVBAR BAR WITH CLEAN AUTOMATED SIDE-BY-SIDE DESIGN --- */
+        /* --- NAVBAR --- */
         .navbar {
             background-color: rgba(0, 0, 0, 0.8);
             backdrop-filter: blur(8px);
@@ -195,7 +195,7 @@
             font-weight: 700;
             color: #888888;
             position: relative;
-            min-width: 160px;
+            min-width: 240px;
             text-align: right;
             height: 24px;
         }
@@ -255,7 +255,7 @@
             filter: drop-shadow(0 0 8px rgba(168, 85, 247, 0.4));
         }
 
-        /* --- WIDGET STACKED CONTAINER --- */
+        /* --- WIDGET CONTAINER --- */
         .widgets-container {
             display: flex;
             flex-direction: column; 
@@ -265,7 +265,6 @@
             width: 100%;
         }
 
-        /* Server IP & Discord Widget Boxes */
         .ip-bar {
             background-color: rgba(17, 17, 17, 0.85);
             backdrop-filter: blur(6px);
@@ -341,7 +340,7 @@
             font-weight: 400;
         }
 
-        /* --- TWO-COLUMN WORKSPACE: RANKS & FAQ SIDE BY SIDE --- */
+        /* --- SHOP LAYOUT --- */
         .shop-layout-grid {
             display: grid;
             grid-template-columns: 1.1fr 0.9fr;
@@ -400,7 +399,6 @@
             font-weight: 400;
         }
 
-        /* --- BUY BUTTON STYLES --- */
         .buy-btn {
             background-color: #ff00ff;
             color: #ffffff;
@@ -431,7 +429,7 @@
             100% { transform: rotate(6deg); }
         }
 
-        /* --- ACCORDION FAQ SYSTEM --- */
+        /* --- ACCORDION FAQ --- */
         .faq-wrapper {
             display: flex;
             flex-direction: column;
@@ -606,8 +604,8 @@
     </div>
 
     <div id="audioEngineContainer">
-        <audio id="bgAudio" loop>
-            <source src="https://codesandbox.io/p/sandbox/github/assets/ambient-loop.mp3" type="audio/mp3">
+        <audio id="bgAudio" loop preload="auto">
+            <source src="https://archive.org/download/minecraft-ost/C418%20-%20Aria%20Math.mp3" type="audio/mp3">
         </audio>
     </div>
 
@@ -625,8 +623,8 @@
             </div>
             
             <div class="audio-status-container">
-                <div class="audio-status-text now-playing-display id-1 fade-in">♪ BACKGROUND TRACK:</div>
-                <div class="audio-status-text track-display id-2">STATION ACTIVE</div>
+                <div class="audio-status-text now-playing-display id-1 fade-in">♪ NOW PLAYING:</div>
+                <div class="audio-status-text track-display id-2">C418 - ARIA MATH</div>
             </div>
         </nav>
 
@@ -774,7 +772,7 @@
         const audio = document.getElementById('bgAudio');
         let hasInteracted = false;
 
-        // Custom Widget text cycles
+        // Custom Title Status Widget text cycles
         let currentWidgetTextId = 1;
         setInterval(() => {
             const txt1 = document.querySelector('.audio-status-text.id-1');
@@ -855,9 +853,9 @@
             document.body.appendChild(ripple);
             setTimeout(() => { ripple.remove(); }, 500);
 
-            // Play clean background stream immediately upon interaction
+            // Play background music seamlessly on the first click
             if (!hasInteracted && audio) {
-                audio.play().catch(err => console.log("Audio autoplay prevented: ", err));
+                audio.play().catch(err => console.log("Audio activation safely handled: ", err));
                 hasInteracted = true;
             }
         });
