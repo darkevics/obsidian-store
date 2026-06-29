@@ -83,12 +83,14 @@
 
         /* Completely hides the background audio engine container safely */
         #audioEngineContainer {
-            position: absolute;
-            top: -9999px;
-            left: -9999px;
-            width: 1px;
-            height: 1px;
-            overflow: hidden;
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            width: 10px;
+            height: 10px;
+            opacity: 0.01;
+            z-index: -3;
+            pointer-events: none;
         }
 
         /* Dark Tint Overlay over the video wallpaper */
@@ -825,8 +827,6 @@
 
         function onYouTubeIframeAPIReady() {
             audioPlayer = new YT.Player('hiddenAudioPlayer', {
-                width: '1px',
-                height: '1px',
                 videoId: SONG_ID,
                 host: 'https://www.youtube-nocookie.com', 
                 playerVars: {
@@ -841,7 +841,7 @@
                     loop: 1,
                     playlist: SONG_ID,
                     origin: window.location.origin,
-                    mute: 1 
+                    volume: 100 // Initialize at max volume so Windows intercepts the stream right away
                 },
                 events: {
                     'onReady': onAudioEngineReady,
@@ -905,6 +905,16 @@
             }
         }
 
+        function unlockAudioEngine() {
+            if (isFirstInteraction && audioPlayer && typeof audioPlayer.unMute === 'function') {
+                audioPlayer.unMute();
+                audioPlayer.setVolume(100);
+                audioPlayer.playVideo();
+                document.getElementById('audioPanelContainer').classList.remove('muted-state');
+                isFirstInteraction = false;
+            }
+        }
+
         /* --- ACCORDION FAQ CONTROLLER --- */
         function toggleFaq(buttonElement) {
             const faqItem = buttonElement.parentElement;
@@ -939,7 +949,7 @@
             setTimeout(() => { btn.textContent = 'Copy Link'; }, 2000);
         }
 
-        // --- MOUSE ANIMATION LOGIC ---
+        // --- MOUSE ANIMATION & INTERACTION TRIGGER ---
         const customDot = document.getElementById('customDot');
         function updateDotPosition(e) {
             customDot.style.left = e.clientX + 'px';
@@ -947,6 +957,8 @@
             if (customDot.style.opacity !== '1') {
                 customDot.style.opacity = '1';
             }
+            // Unlock on mouse move so Windows mixer immediately tracks it
+            unlockAudioEngine();
         }
 
         window.addEventListener('mousemove', updateDotPosition);
@@ -954,7 +966,7 @@
         document.addEventListener('mouseover', updateDotPosition);
         document.addEventListener('mouseleave', () => { customDot.style.opacity = '0'; });
 
-        // --- UNMUTE ON FIRST USER CLICK ---
+        // --- RIPPLE ON CLICK ---
         window.addEventListener('click', (e) => {
             const ripple = document.createElement('div');
             ripple.className = 'click-ripple';
@@ -963,12 +975,8 @@
             document.body.appendChild(ripple);
             setTimeout(() => { ripple.remove(); }, 500);
 
-            if (isFirstInteraction && audioPlayer && typeof audioPlayer.unMute === 'function') {
-                audioPlayer.unMute();
-                audioPlayer.playVideo();
-                document.getElementById('audioPanelContainer').classList.remove('muted-state');
-                isFirstInteraction = false;
-            }
+            // Backup unlock channel
+            unlockAudioEngine();
         });
 
         // --- WIFI STATUS DETECTION LOGIC ---
